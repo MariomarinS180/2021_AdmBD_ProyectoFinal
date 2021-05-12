@@ -6,7 +6,7 @@
 package sistemaempleados;
 import Interfaces.Loggin;
 
-public class SistemaEmpleados {
+public class ConexionSQLServer {
     /**
      * @param args the command line arguments
      */
