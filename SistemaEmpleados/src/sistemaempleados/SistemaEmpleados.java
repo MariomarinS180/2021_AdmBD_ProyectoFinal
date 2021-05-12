@@ -4,18 +4,13 @@
  * and open the template in the editor.
  */
 package sistemaempleados;
+import Interfaces.Loggin;
 
-/**
- *
- * @author marin
- */
 public class SistemaEmpleados {
-
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
-    }
-    
+        Loggin.main(args);
+    } 
 }
