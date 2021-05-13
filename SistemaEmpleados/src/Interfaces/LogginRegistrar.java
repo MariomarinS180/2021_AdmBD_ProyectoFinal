@@ -5,6 +5,8 @@
  */
 package Interfaces;
 
+import Controlador.EmpleadosDAO;
+import Controlador.InicioDeSesion;
 import java.net.URL;
 import javax.swing.*;
 
@@ -133,16 +135,13 @@ public class LogginRegistrar extends javax.swing.JFrame {
          if (cajaUsuarioRegistrar.getText().equals("") || cajaContraseniaRegistrar.getText().equals("")) {
             JOptionPane.showMessageDialog(getParent(), "DEBE INGRESAR LOS DATOS", "INICIO SESIÓN", JOptionPane.CLOSED_OPTION);
         } else {
-            if (txtVerificacionUsuario.getText().equals("USUARIO REGISTRADO")) {
-                JOptionPane.showMessageDialog(getParent(), "ELIJA OTRO NOMBRE DE USUARIO", "NOMBRE DE USUARIO REGISTRADO", JOptionPane.INFORMATION_MESSAGE);
-            } else {
                 try {
-                    boolean res = new LibrosDAO().agregarUsuario(new InicioDeSesion(cajaUsuario.getText(), cajaContrasenia.getText()));
+                    boolean res = new EmpleadosDAO().agregarUsuario(new InicioDeSesion(cajaUsuarioRegistrar.getText(), cajaContraseniaRegistrar.getText()));
                     JOptionPane.showMessageDialog(getParent(), "YA PUEDE ACCEDER", "REGISTRO EXITOSO", JOptionPane.INFORMATION_MESSAGE);
                 } catch (Exception e) {
                 }
             }
-        }
+        
     }//GEN-LAST:event_botonGuardarMouseClicked
 
     public static void main(String args[]) {

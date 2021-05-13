@@ -6,6 +6,8 @@
 package sistemaempleados;
 import Interfaces.Loggin;
 import java.sql.*; 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.*;
 
 public class ConexionSQLServer {
@@ -27,6 +29,41 @@ public class ConexionSQLServer {
         } catch (SQLException e) {
         }
         return con;
+    }
+       public boolean ejecutarInstruccion2(String sql){
+        boolean res = false;
+        try {
+            stm = con.createStatement(); 
+            stm.execute(sql); 
+            res = true;  
+        } catch (Exception ex) {
+           Logger.getLogger(ConexionSQLServer.class.getName()).log(Level.SEVERE, null, ex);
+        }finally{
+            try {
+                con.close();
+            } catch (Exception ex) {
+             Logger.getLogger(ConexionSQLServer.class.getName()).log(Level.SEVERE, null, ex);    
+            }
+        }
+        return res; 
+    }
+       
+      public boolean ejecutarInstruccion(String sql){
+        boolean res = false;
+        try {
+            stm = con.createStatement(); 
+            stm.execute(sql); 
+            res = true;  
+        } catch (Exception ex) {
+           //Logger.getLogger(ConexionSQLServer.class.getName()).log(Level.SEVERE, null, ex);
+        }finally{
+            try {
+                con.close();
+            } catch (Exception ex) {
+             //Logger.getLogger(ConexionSQLServer.class.getName()).log(Level.SEVERE, null, ex);    
+            }
+        }
+        return res; 
     }
     
     

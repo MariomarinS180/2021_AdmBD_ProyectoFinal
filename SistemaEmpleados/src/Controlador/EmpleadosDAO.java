@@ -5,10 +5,17 @@
  */
 package Controlador;
 
+import sistemaempleados.ConexionSQLServer;
+
 /**
  *
  * @author marin
  */
 public class EmpleadosDAO {
+    
+     public boolean agregarUsuario(InicioDeSesion i){
+        String sql = "INSERT INTO usuarios2 VALUES('"+i.getUsuario()+"', '"+i.getPassword()+"');";
+        return new ConexionSQLServer().ejecutarInstruccion(sql); 
+    }
     
 }
