@@ -36,6 +36,7 @@ public class LogginRegistrar extends javax.swing.JFrame {
         cajaUsuarioRegistrar = new javax.swing.JTextField();
         cajaContraseniaRegistrar = new javax.swing.JPasswordField();
         botonRegresarReg = new javax.swing.JButton();
+        txtVerificacionUsuario = new javax.swing.JLabel();
         fondoRegistrar = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -44,6 +45,11 @@ public class LogginRegistrar extends javax.swing.JFrame {
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         botonGuardar.setText("GUARDAR");
+        botonGuardar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                botonGuardarMouseClicked(evt);
+            }
+        });
         jPanel1.add(botonGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 310, 100, 20));
 
         cajaUsuarioRegistrar.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
@@ -80,6 +86,9 @@ public class LogginRegistrar extends javax.swing.JFrame {
             }
         });
         jPanel1.add(botonRegresarReg, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 340, 120, -1));
+
+        txtVerificacionUsuario.setText("jLabel1");
+        jPanel1.add(txtVerificacionUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 200, -1, -1));
 
         fondoRegistrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/InterfazRegistrar.jpg"))); // NOI18N
         jPanel1.add(fondoRegistrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 380));
@@ -120,6 +129,22 @@ public class LogginRegistrar extends javax.swing.JFrame {
         setVisible(false);
     }//GEN-LAST:event_botonRegresarRegMouseClicked
 
+    private void botonGuardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonGuardarMouseClicked
+         if (cajaUsuarioRegistrar.getText().equals("") || cajaContraseniaRegistrar.getText().equals("")) {
+            JOptionPane.showMessageDialog(getParent(), "DEBE INGRESAR LOS DATOS", "INICIO SESIÓN", JOptionPane.CLOSED_OPTION);
+        } else {
+            if (txtVerificacionUsuario.getText().equals("USUARIO REGISTRADO")) {
+                JOptionPane.showMessageDialog(getParent(), "ELIJA OTRO NOMBRE DE USUARIO", "NOMBRE DE USUARIO REGISTRADO", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                try {
+                    boolean res = new LibrosDAO().agregarUsuario(new InicioDeSesion(cajaUsuario.getText(), cajaContrasenia.getText()));
+                    JOptionPane.showMessageDialog(getParent(), "YA PUEDE ACCEDER", "REGISTRO EXITOSO", JOptionPane.INFORMATION_MESSAGE);
+                } catch (Exception e) {
+                }
+            }
+        }
+    }//GEN-LAST:event_botonGuardarMouseClicked
+
     public static void main(String args[]) {
        
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -136,5 +161,6 @@ public class LogginRegistrar extends javax.swing.JFrame {
     private javax.swing.JTextField cajaUsuarioRegistrar;
     private javax.swing.JLabel fondoRegistrar;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel txtVerificacionUsuario;
     // End of variables declaration//GEN-END:variables
 }
