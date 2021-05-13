@@ -28,7 +28,8 @@ public class Loggin extends javax.swing.JFrame {
         botonRegistrarse = new javax.swing.JButton();
         cajaUsuario = new javax.swing.JTextField();
         cajaContrasenia = new javax.swing.JPasswordField();
-        jLabel1 = new javax.swing.JLabel();
+        imagenEyeOp = new javax.swing.JLabel();
+        imagenEyeClo = new javax.swing.JLabel();
         fondo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -64,8 +65,21 @@ public class Loggin extends javax.swing.JFrame {
         });
         jPanel1.add(cajaContrasenia, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 240, 180, 40));
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/ojoAbierto.png"))); // NOI18N
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 250, 30, 20));
+        imagenEyeOp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/ojoAbierto.png"))); // NOI18N
+        imagenEyeOp.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                imagenEyeOpMouseClicked(evt);
+            }
+        });
+        jPanel1.add(imagenEyeOp, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 250, 30, 20));
+
+        imagenEyeClo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/ojoCerrado.png"))); // NOI18N
+        imagenEyeClo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                imagenEyeCloMouseClicked(evt);
+            }
+        });
+        jPanel1.add(imagenEyeClo, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 250, 30, 20));
 
         fondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/interfazLog.jpg"))); // NOI18N
         jPanel1.add(fondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 380));
@@ -100,6 +114,22 @@ public class Loggin extends javax.swing.JFrame {
         
     }//GEN-LAST:event_cajaUsuarioKeyTyped
 
+    private void imagenEyeOpMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_imagenEyeOpMouseClicked
+        imagenEyeClo.setVisible(true);
+        imagenEyeClo.setEnabled(true);
+        cajaContrasenia.setEchoChar((char)0);
+        imagenEyeOp.setVisible(false);
+        imagenEyeOp.setEnabled(false);
+    }//GEN-LAST:event_imagenEyeOpMouseClicked
+
+    private void imagenEyeCloMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_imagenEyeCloMouseClicked
+        imagenEyeOp.setVisible(true);
+        imagenEyeOp.setEnabled(true);
+        cajaContrasenia.setEchoChar((char)8226);
+        imagenEyeClo.setVisible(false);
+        imagenEyeClo.setEnabled(false);
+    }//GEN-LAST:event_imagenEyeCloMouseClicked
+
     public static void main(String args[]) {
        
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -115,7 +145,8 @@ public class Loggin extends javax.swing.JFrame {
     private javax.swing.JPasswordField cajaContrasenia;
     private javax.swing.JTextField cajaUsuario;
     private javax.swing.JLabel fondo;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel imagenEyeClo;
+    private javax.swing.JLabel imagenEyeOp;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }
