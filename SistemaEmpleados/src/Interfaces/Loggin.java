@@ -5,6 +5,7 @@
  */
 package Interfaces;
 
+import java.net.URL;
 import javax.swing.*;
 
 /**
@@ -16,6 +17,12 @@ public class Loggin extends javax.swing.JFrame {
     public Loggin() {
         initComponents();
         this.setLocationRelativeTo(null);
+        iconoEnBD(); 
+    }
+    public void iconoEnBD() {
+        URL url = getClass().getResource("/imagenes/ICONOENBD.png");
+        ImageIcon icono = new ImageIcon(url);
+        setIconImage(icono.getImage());
     }
  
     
@@ -33,7 +40,7 @@ public class Loggin extends javax.swing.JFrame {
         fondo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("INICIO - EMPLEADOS");
+        setTitle("INCIO DE SESIÓN");
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -41,6 +48,11 @@ public class Loggin extends javax.swing.JFrame {
         jPanel1.add(botonIniciarSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 330, -1, -1));
 
         botonRegistrarse.setText("REGISTRARSE");
+        botonRegistrarse.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                botonRegistrarseMouseClicked(evt);
+            }
+        });
         jPanel1.add(botonRegistrarse, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 330, 100, 20));
 
         cajaUsuario.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
@@ -129,6 +141,12 @@ public class Loggin extends javax.swing.JFrame {
         imagenEyeClo.setVisible(false);
         imagenEyeClo.setEnabled(false);
     }//GEN-LAST:event_imagenEyeCloMouseClicked
+
+    private void botonRegistrarseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonRegistrarseMouseClicked
+        LogginRegistrar lr = new LogginRegistrar(); 
+        lr.setVisible(true);
+        setVisible(false);
+    }//GEN-LAST:event_botonRegistrarseMouseClicked
 
     public static void main(String args[]) {
        
