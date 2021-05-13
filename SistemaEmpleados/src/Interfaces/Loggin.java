@@ -6,6 +6,9 @@
 package Interfaces;
 
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import javax.swing.*;
 
 /**
@@ -13,6 +16,9 @@ import javax.swing.*;
  * @author marin
  */
 public class Loggin extends javax.swing.JFrame {
+    private Connection con;
+    private ResultSet rs;
+    private PreparedStatement pst;
 
     public Loggin() {
         initComponents();
@@ -45,6 +51,11 @@ public class Loggin extends javax.swing.JFrame {
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         botonIniciarSesion.setText("INICIAR SESIÓN");
+        botonIniciarSesion.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                botonIniciarSesionMouseClicked(evt);
+            }
+        });
         jPanel1.add(botonIniciarSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 330, -1, -1));
 
         botonRegistrarse.setText("REGISTRARSE");
@@ -147,6 +158,31 @@ public class Loggin extends javax.swing.JFrame {
         lr.setVisible(true);
         setVisible(false);
     }//GEN-LAST:event_botonRegistrarseMouseClicked
+
+    private void botonIniciarSesionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonIniciarSesionMouseClicked
+       String user = cajaUsuario.getText();
+        String password = cajaContrasenia.getText();
+        if (user.equals("") || password.equals("")) {
+            JOptionPane.showMessageDialog(getParent(), "DEBE INGRESAR LOS DATOS", "INICIO SESIÓN", JOptionPane.CLOSED_OPTION);
+        } else {
+            try {
+                con =  sistemaempleados.ConexionSQLServer.getConnection(); 
+                pst = con.prepareStatement("SELECT * FROM Usuarios WHERE usuario=? and contrasenia=?");
+                pst.setString(1, user);
+                pst.setString(2, password);
+                rs = pst.executeQuery();
+                if (rs.next()) {
+                    VentanaInicio vi = new VentanaInicio();
+                    vi.setVisible(true);
+                    setVisible(false);
+                } else {
+                    JOptionPane.showMessageDialog(getParent(), "NO ESTÁ DADO DE ALTA", "FALLO AL INICIAR SESIÓN", JOptionPane.ERROR_MESSAGE);
+                }
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(getParent(), "DEBE REGISTRARSE", "FALLO AL INICIAR SESIÓN", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_botonIniciarSesionMouseClicked
 
     public static void main(String args[]) {
        
