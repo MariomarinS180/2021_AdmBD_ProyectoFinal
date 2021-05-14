@@ -4,6 +4,11 @@
  * and open the template in the editor.
  */
 package Interfaces;
+
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
+
 public class VentanaInicio extends javax.swing.JFrame {
 
     public VentanaInicio() {
@@ -11,15 +16,23 @@ public class VentanaInicio extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         labelImagenDosOpc.setEnabled(false);
         labelImagenDosOpc.setVisible(false);
+        labelCerrarSesion.setEnabled(false);
+        labelCerrarSesion.setVisible(false);            
     }
-    
+    public Icon icono(String path, int width, int heigth){
+        Icon img = new ImageIcon(new ImageIcon(getClass().getResource(path))
+        .getImage().getScaledInstance(width, heigth, java.awt.Image.SCALE_SMOOTH));
+        return img; 
+    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        labelConfiguracion = new javax.swing.JLabel();
+        labelCerrarSesion = new javax.swing.JLabel();
+        labelSet2 = new javax.swing.JLabel();
+        labelSet1 = new javax.swing.JLabel();
         labelImagenDosOpc = new javax.swing.JLabel();
         fondo = new javax.swing.JLabel();
 
@@ -27,12 +40,26 @@ public class VentanaInicio extends javax.swing.JFrame {
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        labelConfiguracion.addMouseListener(new java.awt.event.MouseAdapter() {
+        labelCerrarSesion.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                labelConfiguracionMouseClicked(evt);
+                labelCerrarSesionMouseClicked(evt);
             }
         });
-        jPanel1.add(labelConfiguracion, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 390, 70, 40));
+        jPanel1.add(labelCerrarSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 340, 130, 30));
+
+        labelSet2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                labelSet2MouseClicked(evt);
+            }
+        });
+        jPanel1.add(labelSet2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 390, 70, 40));
+
+        labelSet1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                labelSet1MouseClicked(evt);
+            }
+        });
+        jPanel1.add(labelSet1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 390, 70, 40));
 
         labelImagenDosOpc.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/configuracion.jpg"))); // NOI18N
         jPanel1.add(labelImagenDosOpc, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 270, -1, -1));
@@ -54,10 +81,35 @@ public class VentanaInicio extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void labelConfiguracionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelConfiguracionMouseClicked
+    private void labelSet1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelSet1MouseClicked
+       labelImagenDosOpc.setEnabled(false);
+       labelImagenDosOpc.setVisible(false);
+       labelCerrarSesion.setEnabled(false);
+       labelCerrarSesion.setVisible(false);
+       labelSet1.setEnabled(false);
+       labelSet1.setVisible(false);
+       labelSet2.setEnabled(true);
+       labelSet2.setVisible(true);
+    }//GEN-LAST:event_labelSet1MouseClicked
+
+    private void labelSet2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelSet2MouseClicked
        labelImagenDosOpc.setEnabled(true);
        labelImagenDosOpc.setVisible(true);
-    }//GEN-LAST:event_labelConfiguracionMouseClicked
+       labelCerrarSesion.setEnabled(true);
+       labelCerrarSesion.setVisible(true);
+       labelSet1.setEnabled(true);
+       labelSet1.setVisible(true);
+       labelSet2.setEnabled(false);
+       labelSet2.setVisible(false);
+       
+    }//GEN-LAST:event_labelSet2MouseClicked
+
+    private void labelCerrarSesionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelCerrarSesionMouseClicked
+        Loggin vi = new Loggin(); 
+        vi.setVisible(true);
+        setVisible(false);
+        JOptionPane.showMessageDialog(getParent(), "SE CERRÓ SESIÓN CORRECTAMENTE", "ADIÓS:(", JOptionPane.INFORMATION_MESSAGE, icono("/Imagenes/iconoCorrecto.png",50,50));
+    }//GEN-LAST:event_labelCerrarSesionMouseClicked
 
     public static void main(String args[]) {
         
@@ -71,7 +123,9 @@ public class VentanaInicio extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel fondo;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JLabel labelConfiguracion;
+    private javax.swing.JLabel labelCerrarSesion;
     private javax.swing.JLabel labelImagenDosOpc;
+    private javax.swing.JLabel labelSet1;
+    private javax.swing.JLabel labelSet2;
     // End of variables declaration//GEN-END:variables
 }
