@@ -47,7 +47,6 @@ public class LogginRegistrar extends javax.swing.JFrame {
         cajaUsuarioRegistrar = new javax.swing.JTextField();
         cajaContraseniaRegistrar = new javax.swing.JPasswordField();
         botonRegresarReg = new javax.swing.JButton();
-        txtVerificacionUsuario = new javax.swing.JLabel();
         fondoRegistrar = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -97,9 +96,6 @@ public class LogginRegistrar extends javax.swing.JFrame {
             }
         });
         jPanel1.add(botonRegresarReg, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 340, 120, -1));
-
-        txtVerificacionUsuario.setText("jLabel1");
-        jPanel1.add(txtVerificacionUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 200, -1, -1));
 
         fondoRegistrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/InterfazRegistrar.jpg"))); // NOI18N
         jPanel1.add(fondoRegistrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 380));
@@ -182,6 +178,5 @@ public class LogginRegistrar extends javax.swing.JFrame {
     private javax.swing.JTextField cajaUsuarioRegistrar;
     private javax.swing.JLabel fondoRegistrar;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JLabel txtVerificacionUsuario;
     // End of variables declaration//GEN-END:variables
 }

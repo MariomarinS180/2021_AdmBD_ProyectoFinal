@@ -30,6 +30,11 @@ public class Loggin extends javax.swing.JFrame {
         ImageIcon icono = new ImageIcon(url);
         setIconImage(icono.getImage());
     }
+    public Icon icono(String path, int width, int heigth){
+        Icon img = new ImageIcon(new ImageIcon(getClass().getResource(path))
+        .getImage().getScaledInstance(width, heigth, java.awt.Image.SCALE_SMOOTH));
+        return img; 
+    }
  
     
     @SuppressWarnings("unchecked")
@@ -163,7 +168,7 @@ public class Loggin extends javax.swing.JFrame {
        String user = cajaUsuario.getText();
         String password = cajaContrasenia.getText();
         if (user.equals("") || password.equals("")) {
-            JOptionPane.showMessageDialog(getParent(), "DEBE INGRESAR LOS DATOS", "INICIO SESIÓN", JOptionPane.CLOSED_OPTION);
+            JOptionPane.showMessageDialog(getParent(), "INTRODUZCA TODOS LOS CAMPOS", "INICIO DE SESIÓN", JOptionPane.INFORMATION_MESSAGE, icono("/Imagenes/iconoLlenarDat.png",50,50)); 
         } else {
             try {
                 con =  sistemaempleados.ConexionSQLServer.getConnection(); 
