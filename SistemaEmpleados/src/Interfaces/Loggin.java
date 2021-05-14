@@ -48,7 +48,6 @@ public class Loggin extends javax.swing.JFrame {
         cajaContrasenia = new javax.swing.JPasswordField();
         imagenEyeOp = new javax.swing.JLabel();
         imagenEyeClo = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
         fondo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -119,9 +118,6 @@ public class Loggin extends javax.swing.JFrame {
             }
         });
         jPanel1.add(imagenEyeClo, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 250, 30, 20));
-
-        jLabel1.setText("jLabel1");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 340, -1, -1));
 
         fondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/interfazLog.jpg"))); // NOI18N
         jPanel1.add(fondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 380));
@@ -224,7 +220,6 @@ public class Loggin extends javax.swing.JFrame {
     private javax.swing.JLabel fondo;
     private javax.swing.JLabel imagenEyeClo;
     private javax.swing.JLabel imagenEyeOp;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }
