@@ -48,6 +48,7 @@ public class Loggin extends javax.swing.JFrame {
         cajaContrasenia = new javax.swing.JPasswordField();
         imagenEyeOp = new javax.swing.JLabel();
         imagenEyeClo = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
         fondo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -55,13 +56,23 @@ public class Loggin extends javax.swing.JFrame {
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        botonIniciarSesion.setText("INICIAR SESIÓN");
+        botonIniciarSesion.setBackground(new java.awt.Color(255, 255, 255));
+        botonIniciarSesion.setFont(new java.awt.Font("Candara", 1, 12)); // NOI18N
+        botonIniciarSesion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/botonIniciarSesion.png"))); // NOI18N
+        botonIniciarSesion.setBorder(null);
+        botonIniciarSesion.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        botonIniciarSesion.setOpaque(false);
         botonIniciarSesion.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 botonIniciarSesionMouseClicked(evt);
             }
         });
-        jPanel1.add(botonIniciarSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 330, -1, -1));
+        botonIniciarSesion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonIniciarSesionActionPerformed(evt);
+            }
+        });
+        jPanel1.add(botonIniciarSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 320, 130, 30));
 
         botonRegistrarse.setText("REGISTRARSE");
         botonRegistrarse.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -108,6 +119,9 @@ public class Loggin extends javax.swing.JFrame {
             }
         });
         jPanel1.add(imagenEyeClo, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 250, 30, 20));
+
+        jLabel1.setText("jLabel1");
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 340, -1, -1));
 
         fondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/interfazLog.jpg"))); // NOI18N
         jPanel1.add(fondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 380));
@@ -189,6 +203,10 @@ public class Loggin extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_botonIniciarSesionMouseClicked
 
+    private void botonIniciarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonIniciarSesionActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_botonIniciarSesionActionPerformed
+
     public static void main(String args[]) {
        
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -206,6 +224,7 @@ public class Loggin extends javax.swing.JFrame {
     private javax.swing.JLabel fondo;
     private javax.swing.JLabel imagenEyeClo;
     private javax.swing.JLabel imagenEyeOp;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }
