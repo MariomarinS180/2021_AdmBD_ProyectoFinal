@@ -1,14 +1,13 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package sistemaempleados;
 
-/**
- *
- * @author marin
- */
+import java.sql.CallableStatement;
+import java.sql.SQLException; 
+
 public class Procedimientos {
-    
+    public static void InsertarUsuarios(String u, String p)throws SQLException{
+        CallableStatement entrada  = ConexionSQLServer.getConnection().prepareCall("{Call RegistrarUsuarios(?,?)}"); 
+        entrada.setString(1, u);
+        entrada.setString(2, p);
+        entrada.execute(); 
+    }
 }

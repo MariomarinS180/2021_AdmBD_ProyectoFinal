@@ -167,7 +167,7 @@ public class Loggin extends javax.swing.JFrame {
         } else {
             try {
                 con =  sistemaempleados.ConexionSQLServer.getConnection(); 
-                pst = con.prepareStatement("SELECT * FROM usuariossss WHERE usuario=? and contrasenia=?");
+                pst = con.prepareStatement("SELECT * FROM Usuarios WHERE usuario=? and contrasenia=?");
                 pst.setString(1, user);
                 pst.setString(2, password);
                 rs = pst.executeQuery();

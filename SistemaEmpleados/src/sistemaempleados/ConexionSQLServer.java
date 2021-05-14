@@ -65,6 +65,20 @@ public class ConexionSQLServer {
         }
         return res; 
     }
+      
+     public static ResultSet Consulta(String consulta){
+        Connection con = getConnection();
+        Statement declara;
+        try{
+            declara=con.createStatement();
+            ResultSet respuesta = declara.executeQuery(consulta);
+            return respuesta;
+        }catch (SQLException e){
+            JOptionPane.showMessageDialog(null, "Error" + e.getMessage(),
+            "Error de Conexion",JOptionPane.ERROR_MESSAGE);
+        }
+        return null;
+    }
     
     
     public static void main(String[] args) {

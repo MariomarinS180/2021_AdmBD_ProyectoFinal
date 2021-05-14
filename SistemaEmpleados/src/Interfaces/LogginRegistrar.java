@@ -8,7 +8,11 @@ package Interfaces;
 import Controlador.EmpleadosDAO;
 import Controlador.InicioDeSesion;
 import java.net.URL;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import javax.swing.*;
+import sistemaempleados.*;
+
 
 
 /**
@@ -26,6 +30,11 @@ public class LogginRegistrar extends javax.swing.JFrame {
         URL url = getClass().getResource("/imagenes/ICONOENBD.png");
         ImageIcon icono = new ImageIcon(url);
         setIconImage(icono.getImage());
+    }
+    public Icon icono(String path, int width, int heigth){
+        Icon img = new ImageIcon(new ImageIcon(getClass().getResource(path))
+        .getImage().getScaledInstance(width, heigth, java.awt.Image.SCALE_SMOOTH));
+        return img; 
     }
  
     
@@ -132,15 +141,28 @@ public class LogginRegistrar extends javax.swing.JFrame {
     }//GEN-LAST:event_botonRegresarRegMouseClicked
 
     private void botonGuardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonGuardarMouseClicked
-         if (cajaUsuarioRegistrar.getText().equals("") || cajaContraseniaRegistrar.getText().equals("")) {
-            JOptionPane.showMessageDialog(getParent(), "DEBE INGRESAR LOS DATOS", "INICIO SESIÓN", JOptionPane.CLOSED_OPTION);
-        } else {
-                try {
-                    boolean res = new EmpleadosDAO().agregarUsuario(new InicioDeSesion(cajaUsuarioRegistrar.getText(), cajaContraseniaRegistrar.getText()));
-                    JOptionPane.showMessageDialog(getParent(), "YA PUEDE ACCEDER", "REGISTRO EXITOSO", JOptionPane.INFORMATION_MESSAGE);
-                } catch (Exception e) {
-                }
-            }
+        ResultSet res;
+        int cont = 0; 
+        if (cajaUsuarioRegistrar.getText().equals("") || cajaContraseniaRegistrar.getText().equals("")) {
+            JOptionPane.showMessageDialog(getParent(), "INTRODUZCA TODOS LOS CAMPOS", "¡OJITO!", JOptionPane.INFORMATION_MESSAGE, icono("/Imagenes/iconoLlenarDat.png",50,50)); 
+        }else{
+             try {
+                 res = ConexionSQLServer.Consulta("SELECT COUNT(usuario)from Usuarios where usuario= '" + cajaUsuarioRegistrar.getText() + "'"); 
+                 try{
+                     while(res.next()){
+                        cont = res.getInt(1); 
+                     }
+                 }catch(SQLException e){                     
+                 }
+                 if(cont >=1){
+                 JOptionPane.showMessageDialog(getParent(), "ELIJA OTRO NOMBRE DE USUARIO", "USUARIO EXISTENTE", JOptionPane.ERROR_MESSAGE);  
+                 }else{
+                   Procedimientos.InsertarUsuarios(cajaUsuarioRegistrar.getText(), cajaContraseniaRegistrar.getText());
+                   JOptionPane.showMessageDialog(getParent(), "REGISTRADO PERRO!!!", "BIENVENIDO PVTO", JOptionPane.INFORMATION_MESSAGE, icono("/Imagenes/iconoCorrecto.png",50,50)); 
+                 }
+             }catch(SQLException e){           
+             }
+         }
         
     }//GEN-LAST:event_botonGuardarMouseClicked
 
