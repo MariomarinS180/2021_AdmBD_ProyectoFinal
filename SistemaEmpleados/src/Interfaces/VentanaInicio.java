@@ -123,14 +123,14 @@ public class VentanaInicio extends javax.swing.JFrame {
         Loggin vi = new Loggin(); 
         vi.setVisible(true);
         setVisible(false);
-        JOptionPane.showMessageDialog(getParent(), "SE CERRÓ SESIÓN CORRECTAMENTE", "ADIÓS:(", JOptionPane.INFORMATION_MESSAGE, icono("/Imagenes/iconoCorrecto.png",50,50));
+        JOptionPane.showMessageDialog(getParent(), "SE CERRÓ SESIÓN CORRECTAMENTE", "ADIÓS:(", JOptionPane.INFORMATION_MESSAGE, icono("/Imagenes/iconoCerrarSesion.png",50,50));
     }//GEN-LAST:event_labelCerrarSesionMouseClicked
 
     private void labelIniciarSesionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelIniciarSesionMouseClicked
        LogginRegistrar lg = new LogginRegistrar(); 
        lg.setVisible(true);
        setVisible(false); 
-       JOptionPane.showMessageDialog(getParent(), "CREACIÓN DE USUARIO NUEVO", "BIENVENIDO", JOptionPane.INFORMATION_MESSAGE, icono("/Imagenes/iconoCorrecto.png",50,50));
+       JOptionPane.showMessageDialog(getParent(), "CREACIÓN DE USUARIO NUEVO", "BIENVENIDO", JOptionPane.INFORMATION_MESSAGE, icono("/Imagenes/iconoCrearUsuario.png",50,50));
     }//GEN-LAST:event_labelIniciarSesionMouseClicked
 
     public static void main(String args[]) {
