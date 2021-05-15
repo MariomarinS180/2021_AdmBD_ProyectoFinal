@@ -59,6 +59,7 @@ public class VentanaInicio extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaVistaEmpleados = new javax.swing.JTable();
+        labelAgregarUsuario = new javax.swing.JLabel();
         labelIniciarSesion = new javax.swing.JLabel();
         labelCerrarSesion = new javax.swing.JLabel();
         labelSet2 = new javax.swing.JLabel();
@@ -102,7 +103,10 @@ public class VentanaInicio extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(tablaVistaEmpleados);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 310, 530, 110));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 290, 570, 110));
+
+        labelAgregarUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/MenuEmpleado.png"))); // NOI18N
+        jPanel1.add(labelAgregarUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 60, 180, 170));
 
         labelIniciarSesion.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -206,6 +210,7 @@ public class VentanaInicio extends javax.swing.JFrame {
     private javax.swing.JLabel fondo;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel labelAgregarUsuario;
     private javax.swing.JLabel labelCerrarSesion;
     private javax.swing.JLabel labelImagenDosOpc;
     private javax.swing.JLabel labelIniciarSesion;
