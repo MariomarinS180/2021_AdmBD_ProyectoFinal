@@ -17,7 +17,9 @@ public class VentanaInicio extends javax.swing.JFrame {
         labelImagenDosOpc.setEnabled(false);
         labelImagenDosOpc.setVisible(false);
         labelCerrarSesion.setEnabled(false);
-        labelCerrarSesion.setVisible(false);            
+        labelCerrarSesion.setVisible(false);  
+        labelIniciarSesion.setEnabled(false);
+        labelIniciarSesion.setVisible(false);  
     }
     public Icon icono(String path, int width, int heigth){
         Icon img = new ImageIcon(new ImageIcon(getClass().getResource(path))
@@ -30,6 +32,7 @@ public class VentanaInicio extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
+        labelIniciarSesion = new javax.swing.JLabel();
         labelCerrarSesion = new javax.swing.JLabel();
         labelSet2 = new javax.swing.JLabel();
         labelSet1 = new javax.swing.JLabel();
@@ -37,8 +40,16 @@ public class VentanaInicio extends javax.swing.JFrame {
         fondo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        labelIniciarSesion.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                labelIniciarSesionMouseClicked(evt);
+            }
+        });
+        jPanel1.add(labelIniciarSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 290, 130, 40));
 
         labelCerrarSesion.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -86,6 +97,8 @@ public class VentanaInicio extends javax.swing.JFrame {
        labelImagenDosOpc.setVisible(false);
        labelCerrarSesion.setEnabled(false);
        labelCerrarSesion.setVisible(false);
+       labelIniciarSesion.setEnabled(false);
+       labelIniciarSesion.setVisible(false);  
        labelSet1.setEnabled(false);
        labelSet1.setVisible(false);
        labelSet2.setEnabled(true);
@@ -97,6 +110,8 @@ public class VentanaInicio extends javax.swing.JFrame {
        labelImagenDosOpc.setVisible(true);
        labelCerrarSesion.setEnabled(true);
        labelCerrarSesion.setVisible(true);
+        labelIniciarSesion.setEnabled(true);
+        labelIniciarSesion.setVisible(true);  
        labelSet1.setEnabled(true);
        labelSet1.setVisible(true);
        labelSet2.setEnabled(false);
@@ -110,6 +125,13 @@ public class VentanaInicio extends javax.swing.JFrame {
         setVisible(false);
         JOptionPane.showMessageDialog(getParent(), "SE CERRÓ SESIÓN CORRECTAMENTE", "ADIÓS:(", JOptionPane.INFORMATION_MESSAGE, icono("/Imagenes/iconoCorrecto.png",50,50));
     }//GEN-LAST:event_labelCerrarSesionMouseClicked
+
+    private void labelIniciarSesionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelIniciarSesionMouseClicked
+       LogginRegistrar lg = new LogginRegistrar(); 
+       lg.setVisible(true);
+       setVisible(false); 
+       JOptionPane.showMessageDialog(getParent(), "CREACIÓN DE USUARIO NUEVO", "BIENVENIDO", JOptionPane.INFORMATION_MESSAGE, icono("/Imagenes/iconoCorrecto.png",50,50));
+    }//GEN-LAST:event_labelIniciarSesionMouseClicked
 
     public static void main(String args[]) {
         
@@ -125,6 +147,7 @@ public class VentanaInicio extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel labelCerrarSesion;
     private javax.swing.JLabel labelImagenDosOpc;
+    private javax.swing.JLabel labelIniciarSesion;
     private javax.swing.JLabel labelSet1;
     private javax.swing.JLabel labelSet2;
     // End of variables declaration//GEN-END:variables
