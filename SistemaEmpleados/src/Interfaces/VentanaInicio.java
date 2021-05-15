@@ -5,15 +5,21 @@
  */
 package Interfaces;
 
+import java.sql.ResultSet;
+import java.util.Vector;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import sistemaempleados.ConexionSQLServer;
 
 public class VentanaInicio extends javax.swing.JFrame {
+     ResultSet rs;
 
     public VentanaInicio() {
         initComponents();
         this.setLocationRelativeTo(null);
+        tablaEmpleados();
         labelImagenDosOpc.setEnabled(false);
         labelImagenDosOpc.setVisible(false);
         labelCerrarSesion.setEnabled(false);
@@ -26,12 +32,33 @@ public class VentanaInicio extends javax.swing.JFrame {
         .getImage().getScaledInstance(width, heigth, java.awt.Image.SCALE_SMOOTH));
         return img; 
     }
+    public void tablaEmpleados(){
+        DefaultTableModel modelo = (DefaultTableModel) tablaVistaEmpleados.getModel(); 
+        modelo.setRowCount(0);
+        rs = sistemaempleados.ConexionSQLServer.Consulta("SELECT * FROM vista_empleados");
+        try {
+            while (rs.next()) {                
+                Vector v = new Vector();               
+                v.add(rs.getInt(1)); 
+                v.add(rs.getString(2));
+                v.add(rs.getString(3)); 
+                v.add(rs.getString(4));
+                v.add(rs.getString(5)); 
+                modelo.addRow(v);
+                tablaVistaEmpleados.setModel(modelo);
+            }
+        } catch (Exception e) {
+        }
+        
+    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tablaVistaEmpleados = new javax.swing.JTable();
         labelIniciarSesion = new javax.swing.JLabel();
         labelCerrarSesion = new javax.swing.JLabel();
         labelSet2 = new javax.swing.JLabel();
@@ -43,6 +70,39 @@ public class VentanaInicio extends javax.swing.JFrame {
         setUndecorated(true);
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        tablaVistaEmpleados.setBackground(new java.awt.Color(153, 204, 255));
+        tablaVistaEmpleados.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        tablaVistaEmpleados.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        tablaVistaEmpleados.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
+            },
+            new String [] {
+                "ID", "Nombre", "Apellido", "Titulo", "Fecha Contratación"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(tablaVistaEmpleados);
+
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 310, 530, 110));
 
         labelIniciarSesion.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -110,8 +170,8 @@ public class VentanaInicio extends javax.swing.JFrame {
        labelImagenDosOpc.setVisible(true);
        labelCerrarSesion.setEnabled(true);
        labelCerrarSesion.setVisible(true);
-        labelIniciarSesion.setEnabled(true);
-        labelIniciarSesion.setVisible(true);  
+       labelIniciarSesion.setEnabled(true);
+       labelIniciarSesion.setVisible(true);  
        labelSet1.setEnabled(true);
        labelSet1.setVisible(true);
        labelSet2.setEnabled(false);
@@ -145,10 +205,12 @@ public class VentanaInicio extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel fondo;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel labelCerrarSesion;
     private javax.swing.JLabel labelImagenDosOpc;
     private javax.swing.JLabel labelIniciarSesion;
     private javax.swing.JLabel labelSet1;
     private javax.swing.JLabel labelSet2;
+    private javax.swing.JTable tablaVistaEmpleados;
     // End of variables declaration//GEN-END:variables
 }
