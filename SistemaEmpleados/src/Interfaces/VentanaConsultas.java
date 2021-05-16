@@ -28,18 +28,55 @@ public class VentanaConsultas extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
+        radioNombre = new javax.swing.JRadioButton();
+        radioEspecialidad = new javax.swing.JRadioButton();
+        radioFechaContratacion = new javax.swing.JRadioButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        radioNombre.setText("Nombre");
+        radioNombre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                radioNombreActionPerformed(evt);
+            }
+        });
+
+        radioEspecialidad.setText("Buscar Por Especialidad");
+        radioEspecialidad.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                radioEspecialidadActionPerformed(evt);
+            }
+        });
+
+        radioFechaContratacion.setText("Buscar por Fecha de Contratación");
+        radioFechaContratacion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                radioFechaContratacionActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 577, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(62, 62, 62)
+                .addComponent(radioNombre)
+                .addGap(67, 67, 67)
+                .addComponent(radioEspecialidad)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
+                .addComponent(radioFechaContratacion)
+                .addGap(25, 25, 25))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 307, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(60, 60, 60)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(radioEspecialidad)
+                    .addComponent(radioFechaContratacion)
+                    .addComponent(radioNombre))
+                .addContainerGap(224, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -55,6 +92,21 @@ public class VentanaConsultas extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void radioEspecialidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioEspecialidadActionPerformed
+       radioFechaContratacion.setSelected(false);
+       radioNombre.setSelected(false);
+    }//GEN-LAST:event_radioEspecialidadActionPerformed
+
+    private void radioNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioNombreActionPerformed
+        radioEspecialidad.setSelected(false);
+        radioFechaContratacion.setSelected(false);
+    }//GEN-LAST:event_radioNombreActionPerformed
+
+    private void radioFechaContratacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioFechaContratacionActionPerformed
+       radioNombre.setSelected(false);
+       radioEspecialidad.setSelected(false);
+    }//GEN-LAST:event_radioFechaContratacionActionPerformed
 
     /**
      * @param args the command line arguments
@@ -93,5 +145,8 @@ public class VentanaConsultas extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JRadioButton radioEspecialidad;
+    private javax.swing.JRadioButton radioFechaContratacion;
+    private javax.swing.JRadioButton radioNombre;
     // End of variables declaration//GEN-END:variables
 }
