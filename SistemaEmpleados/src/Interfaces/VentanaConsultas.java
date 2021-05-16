@@ -5,18 +5,71 @@
  */
 package Interfaces;
 
+import java.sql.ResultSet;
+import java.util.Vector;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author marin
  */
 public class VentanaConsultas extends javax.swing.JFrame {
 
-    /**
-     * Creates new form VentanaConsultas
-     */
+    ResultSet rs; 
     public VentanaConsultas() {
         initComponents();
+        this.setLocationRelativeTo(null);
+       // tablaNombres.setEnabled(false);
+       // tablaNombres.setVisible(false);
+        //tablaEspecialidades.setEnabled(false);
+        //tablaEspecialidades.setVisible(false);
+        jScrollPane1.setEnabled(false);
+        jScrollPane1.setVisible(false); 
+        jScrollPane2.setEnabled(false);
+        jScrollPane2.setVisible(false);
+        tablaNombres();
+        tablaEspecialidad();
+       
     }
+     public void tablaNombres(){
+        DefaultTableModel modelo = (DefaultTableModel) tablaNombres.getModel(); 
+        modelo.setRowCount(0);
+        rs = sistemaempleados.ConexionSQLServer.Consulta("SELECT * FROM vista_empleados WHERE nombre LIKE '"+cajaBuscar.getText()+"%'");
+        try {
+            while (rs.next()) {                
+                Vector v = new Vector();               
+                v.add(rs.getInt(1)); 
+                v.add(rs.getString(2));
+                v.add(rs.getString(3)); 
+                v.add(rs.getString(4));
+                v.add(rs.getString(5)); 
+                modelo.addRow(v);
+                tablaNombres.setModel(modelo);
+            }
+        } catch (Exception e) {
+        }   
+    }
+    public void tablaEspecialidad() {
+        DefaultTableModel modelo = (DefaultTableModel) tablaEspecialidades.getModel();
+        modelo.setRowCount(0);
+        rs = sistemaempleados.ConexionSQLServer.Consulta("select T.titulo, E.emp_no, E.nombre, E.apellido\n"
+                + "from titles T\n"
+                + "join employees E\n"
+                + "on T.emp_no = E.emp_no");
+        try {
+            while (rs.next()) {
+                Vector v = new Vector();
+                v.add(rs.getString(1));
+                v.add(rs.getInt(2));
+                v.add(rs.getString(3));
+                v.add(rs.getString(4));
+                modelo.addRow(v);
+                tablaEspecialidades.setModel(modelo);
+            }
+        } catch (Exception e) {
+        }
+    }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -31,8 +84,16 @@ public class VentanaConsultas extends javax.swing.JFrame {
         radioNombre = new javax.swing.JRadioButton();
         radioEspecialidad = new javax.swing.JRadioButton();
         radioFechaContratacion = new javax.swing.JRadioButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tablaNombres = new javax.swing.JTable();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tablaEspecialidades = new javax.swing.JTable();
+        cajaBuscar = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         radioNombre.setText("Nombre");
         radioNombre.addActionListener(new java.awt.event.ActionListener() {
@@ -40,6 +101,7 @@ public class VentanaConsultas extends javax.swing.JFrame {
                 radioNombreActionPerformed(evt);
             }
         });
+        jPanel1.add(radioNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(62, 60, -1, -1));
 
         radioEspecialidad.setText("Buscar Por Especialidad");
         radioEspecialidad.addActionListener(new java.awt.event.ActionListener() {
@@ -47,6 +109,7 @@ public class VentanaConsultas extends javax.swing.JFrame {
                 radioEspecialidadActionPerformed(evt);
             }
         });
+        jPanel1.add(radioEspecialidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(192, 60, -1, -1));
 
         radioFechaContratacion.setText("Buscar por Fecha de Contratación");
         radioFechaContratacion.addActionListener(new java.awt.event.ActionListener() {
@@ -54,41 +117,85 @@ public class VentanaConsultas extends javax.swing.JFrame {
                 radioFechaContratacionActionPerformed(evt);
             }
         });
+        jPanel1.add(radioFechaContratacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 60, -1, -1));
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(62, 62, 62)
-                .addComponent(radioNombre)
-                .addGap(67, 67, 67)
-                .addComponent(radioEspecialidad)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
-                .addComponent(radioFechaContratacion)
-                .addGap(25, 25, 25))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(60, 60, 60)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(radioEspecialidad)
-                    .addComponent(radioFechaContratacion)
-                    .addComponent(radioNombre))
-                .addContainerGap(224, Short.MAX_VALUE))
-        );
+        tablaNombres.setBackground(new java.awt.Color(153, 204, 255));
+        tablaNombres.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        tablaNombres.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        tablaNombres.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
+            },
+            new String [] {
+                "ID", "Nombre", "Apellido", "Titulo", "Fecha Contratación"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(tablaNombres);
+
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 150, 570, 110));
+
+        tablaEspecialidades.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Titulo", "ID Empleado", "Nombre", "Apellido"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane2.setViewportView(tablaEspecialidades);
+
+        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 150, 570, 110));
+
+        cajaBuscar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                cajaBuscarKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                cajaBuscarKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                cajaBuscarKeyTyped(evt);
+            }
+        });
+        jPanel1.add(cajaBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 100, 430, 30));
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, 0, 640, 300));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -96,22 +203,71 @@ public class VentanaConsultas extends javax.swing.JFrame {
     private void radioEspecialidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioEspecialidadActionPerformed
        radioFechaContratacion.setSelected(false);
        radioNombre.setSelected(false);
+       jScrollPane2.setEnabled(true);
+       jScrollPane2.setVisible(true);
+       jScrollPane1.setEnabled(false);
+       jScrollPane1.setVisible(false); 
+       if(radioEspecialidad.isSelected() == false){
+       jScrollPane2.setEnabled(false);
+       jScrollPane2.setVisible(false);
+       }
+        
+     
     }//GEN-LAST:event_radioEspecialidadActionPerformed
 
+    
     private void radioNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioNombreActionPerformed
         radioEspecialidad.setSelected(false);
         radioFechaContratacion.setSelected(false);
+        jScrollPane1.setEnabled(true);
+        jScrollPane1.setVisible(true);
+        jScrollPane2.setEnabled(false);
+        jScrollPane2.setVisible(false);
+        
+        if (radioNombre.isSelected() == false) {
+            jScrollPane1.setEnabled(false);
+            jScrollPane1.setVisible(false);
+            cajaBuscar.setText("");
+        }
+        
+        /*
+        if (radioEspecialidad.isSelected() == true && radioFechaContratacion.isSelected() == true && radioNombre.isSelected()==false) {
+            cajaBuscar.setText("");
+        }
+        */
+  
     }//GEN-LAST:event_radioNombreActionPerformed
 
     private void radioFechaContratacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioFechaContratacionActionPerformed
        radioNombre.setSelected(false);
        radioEspecialidad.setSelected(false);
+     
     }//GEN-LAST:event_radioFechaContratacionActionPerformed
+
+    private void cajaBuscarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cajaBuscarKeyReleased
+       
+        tablaNombres();
+        tablaEspecialidad();
+    }//GEN-LAST:event_cajaBuscarKeyReleased
+
+    private void cajaBuscarKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cajaBuscarKeyTyped
+        // TODO add your handling code here:
+        
+         
+        
+    }//GEN-LAST:event_cajaBuscarKeyTyped
+
+    private void cajaBuscarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cajaBuscarKeyPressed
+        // TODO add your handling code here:
+        
+   
+    }//GEN-LAST:event_cajaBuscarKeyPressed
 
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
+        
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -144,9 +300,14 @@ public class VentanaConsultas extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField cajaBuscar;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JRadioButton radioEspecialidad;
     private javax.swing.JRadioButton radioFechaContratacion;
     private javax.swing.JRadioButton radioNombre;
+    private javax.swing.JTable tablaEspecialidades;
+    private javax.swing.JTable tablaNombres;
     // End of variables declaration//GEN-END:variables
 }
