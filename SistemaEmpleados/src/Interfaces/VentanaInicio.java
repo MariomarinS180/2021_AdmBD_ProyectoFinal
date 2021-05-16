@@ -106,6 +106,11 @@ public class VentanaInicio extends javax.swing.JFrame {
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 290, 570, 110));
 
         labelAgregarUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/MenuEmpleado.png"))); // NOI18N
+        labelAgregarUsuario.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                labelAgregarUsuarioMouseClicked(evt);
+            }
+        });
         jPanel1.add(labelAgregarUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 60, 180, 170));
 
         labelIniciarSesion.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -196,6 +201,12 @@ public class VentanaInicio extends javax.swing.JFrame {
        setVisible(false); 
        JOptionPane.showMessageDialog(getParent(), "CREACIÓN DE USUARIO NUEVO", "BIENVENIDO", JOptionPane.INFORMATION_MESSAGE, icono("/Imagenes/iconoCrearUsuario.png",50,50));
     }//GEN-LAST:event_labelIniciarSesionMouseClicked
+
+    private void labelAgregarUsuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelAgregarUsuarioMouseClicked
+       VentanaEmpleados ve = new VentanaEmpleados(); 
+       ve.setVisible(true);
+       setVisible(false);  
+    }//GEN-LAST:event_labelAgregarUsuarioMouseClicked
 
     public static void main(String args[]) {
         
