@@ -59,6 +59,7 @@ public class VentanaInicio extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaVistaEmpleados = new javax.swing.JTable();
+        labelBusqueda = new javax.swing.JLabel();
         labelAgregarUsuario = new javax.swing.JLabel();
         labelIniciarSesion = new javax.swing.JLabel();
         labelCerrarSesion = new javax.swing.JLabel();
@@ -104,6 +105,13 @@ public class VentanaInicio extends javax.swing.JFrame {
         jScrollPane1.setViewportView(tablaVistaEmpleados);
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 290, 570, 110));
+
+        labelBusqueda.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                labelBusquedaMouseClicked(evt);
+            }
+        });
+        jPanel1.add(labelBusqueda, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 120, 40));
 
         labelAgregarUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/MenuEmpleado.png"))); // NOI18N
         labelAgregarUsuario.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -208,6 +216,13 @@ public class VentanaInicio extends javax.swing.JFrame {
        setVisible(false);  
     }//GEN-LAST:event_labelAgregarUsuarioMouseClicked
 
+    private void labelBusquedaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelBusquedaMouseClicked
+        VentanaConsultas ve = new VentanaConsultas();
+       ve.setVisible(true);
+       setVisible(false);  
+        
+    }//GEN-LAST:event_labelBusquedaMouseClicked
+
     public static void main(String args[]) {
         
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -222,6 +237,7 @@ public class VentanaInicio extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel labelAgregarUsuario;
+    private javax.swing.JLabel labelBusqueda;
     private javax.swing.JLabel labelCerrarSesion;
     private javax.swing.JLabel labelImagenDosOpc;
     private javax.swing.JLabel labelIniciarSesion;

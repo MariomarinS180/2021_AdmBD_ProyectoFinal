@@ -227,8 +227,9 @@ public class VentanaConsultas extends javax.swing.JFrame {
         if (radioNombre.isSelected() == false) {
             jScrollPane1.setEnabled(false);
             jScrollPane1.setVisible(false);
-            cajaBuscar.setText("");
+            
         }
+        cajaBuscar.setText("");
         
         /*
         if (radioEspecialidad.isSelected() == true && radioFechaContratacion.isSelected() == true && radioNombre.isSelected()==false) {
@@ -245,7 +246,6 @@ public class VentanaConsultas extends javax.swing.JFrame {
     }//GEN-LAST:event_radioFechaContratacionActionPerformed
 
     private void cajaBuscarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cajaBuscarKeyReleased
-       
         tablaNombres();
         tablaEspecialidad();
     }//GEN-LAST:event_cajaBuscarKeyReleased
