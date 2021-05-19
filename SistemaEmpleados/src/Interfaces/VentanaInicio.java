@@ -35,7 +35,7 @@ public class VentanaInicio extends javax.swing.JFrame {
     public void tablaEmpleados(){
         DefaultTableModel modelo = (DefaultTableModel) tablaVistaEmpleados.getModel(); 
         modelo.setRowCount(0);
-        rs = sistemaempleados.ConexionSQLServer.Consulta("SELECT * FROM vista_empleados");
+        rs = sistemaempleados.ConexionSQLServer.Consulta("SELECT TOP 1 * FROM employees ORDER BY emp_no DESC");
         try {
             while (rs.next()) {                
                 Vector v = new Vector();               
