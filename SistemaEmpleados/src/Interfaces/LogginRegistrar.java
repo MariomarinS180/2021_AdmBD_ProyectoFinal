@@ -138,28 +138,28 @@ public class LogginRegistrar extends javax.swing.JFrame {
 
     private void botonGuardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonGuardarMouseClicked
         ResultSet res;
-        int cont = 0; 
+        int cont = 0;
         if (cajaUsuarioRegistrar.getText().equals("") || cajaContraseniaRegistrar.getText().equals("")) {
-            JOptionPane.showMessageDialog(getParent(), "INTRODUZCA TODOS LOS CAMPOS", "¡OJITO!", JOptionPane.INFORMATION_MESSAGE, icono("/Imagenes/iconoLlenarDat.png",50,50)); 
-        }else{
-             try {
-                 res = ConexionSQLServer.Consulta("SELECT COUNT(usuario)from Usuarios where usuario= '" + cajaUsuarioRegistrar.getText() + "'"); 
-                 try{
-                     while(res.next()){
-                        cont = res.getInt(1); 
-                     }
-                 }catch(SQLException e){                     
-                 }
-                 if(cont >=1){
-                 JOptionPane.showMessageDialog(getParent(), "ELIJA OTRO NOMBRE DE USUARIO", "USUARIO EXISTENTE", JOptionPane.ERROR_MESSAGE);  
-                 }else{
-                   Procedimientos.InsertarUsuarios(cajaUsuarioRegistrar.getText(), cajaContraseniaRegistrar.getText());
-                   JOptionPane.showMessageDialog(getParent(), "REGISTRADO PERRO!!!", "BIENVENIDO PVTO", JOptionPane.INFORMATION_MESSAGE, icono("/Imagenes/iconoCorrecto.png",50,50)); 
-                 }
-             }catch(SQLException e){           
-             }
-         }
-        
+            JOptionPane.showMessageDialog(getParent(), "INTRODUZCA TODOS LOS CAMPOS", "¡OJITO!", JOptionPane.INFORMATION_MESSAGE, icono("/Imagenes/iconoLlenarDat.png", 50, 50));
+        } else {
+            try {
+                res = ConexionSQLServer.Consulta("SELECT COUNT(usuario)from Usuarios where usuario= '" + cajaUsuarioRegistrar.getText() + "'");
+                try {
+                    while (res.next()) {
+                        cont = res.getInt(1);
+                    }
+                } catch (SQLException e) {
+                }
+                if (cont >= 1) {
+                    JOptionPane.showMessageDialog(getParent(), "ELIJA OTRO NOMBRE DE USUARIO", "USUARIO EXISTENTE", JOptionPane.ERROR_MESSAGE);
+                } else {
+                    Procedimientos.InsertarUsuarios(cajaUsuarioRegistrar.getText(), cajaContraseniaRegistrar.getText());
+                    JOptionPane.showMessageDialog(getParent(), "REGISTRADO PERRO!!!", "BIENVENIDO PVTO", JOptionPane.INFORMATION_MESSAGE, icono("/Imagenes/iconoCorrecto.png", 50, 50));
+                }
+            } catch (SQLException e) {
+            }
+        }
+
     }//GEN-LAST:event_botonGuardarMouseClicked
 
     public static void main(String args[]) {
