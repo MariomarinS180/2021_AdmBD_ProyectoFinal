@@ -35,7 +35,7 @@ public class VentanaInicio extends javax.swing.JFrame {
     public void tablaEmpleados(){
         DefaultTableModel modelo = (DefaultTableModel) tablaVistaEmpleados.getModel(); 
         modelo.setRowCount(0);
-        rs = sistemaempleados.ConexionSQLServer.Consulta("SELECT TOP 1 * FROM employees ORDER BY emp_no DESC");
+        rs = sistemaempleados.ConexionSQLServer.Consulta("SELECT * FROM employees");
         try {
             while (rs.next()) {                
                 Vector v = new Vector();               
@@ -119,7 +119,7 @@ public class VentanaInicio extends javax.swing.JFrame {
                 labelAgregarUsuarioMouseClicked(evt);
             }
         });
-        jPanel1.add(labelAgregarUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 60, 180, 170));
+        jPanel1.add(labelAgregarUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 30, 180, 170));
 
         labelIniciarSesion.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -153,7 +153,7 @@ public class VentanaInicio extends javax.swing.JFrame {
         jPanel1.add(labelImagenDosOpc, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 270, -1, -1));
 
         fondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/DiseñoMenuDesplegable.jpg"))); // NOI18N
-        jPanel1.add(fondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+        jPanel1.add(fondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 810, 440));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

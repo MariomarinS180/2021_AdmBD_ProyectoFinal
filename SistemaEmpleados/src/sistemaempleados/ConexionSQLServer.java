@@ -18,14 +18,14 @@ public class ConexionSQLServer {
     private Statement stm; 
     
       public static Connection getConnection(){
-        String url = "jdbc:sqlserver://localhost:1433;databaseName=employees";
+        String url = "jdbc:sqlserver://localhost:1433;databaseName=empleados";
         try {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
         } catch (ClassNotFoundException e) {
             JOptionPane.showMessageDialog(null, "No se pudo establecer la conexion" + e.getMessage(),"Error de Conexion",JOptionPane.ERROR_MESSAGE);
         }
         try {
-            con = DriverManager.getConnection(url,"marin","jerez2021");
+            con = DriverManager.getConnection(url,"mario","jereztec2021");
         } catch (SQLException e) {
         }
         return con;

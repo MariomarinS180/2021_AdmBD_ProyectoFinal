@@ -6,16 +6,19 @@
 
 package Interfaces;
 
+import javax.swing.JOptionPane;
+import sistemaempleados.Procedimientos; 
 /**
  *
  * @author marin
  */
 public class VentanaEmpleados extends javax.swing.JFrame {
-
-    /** Creates new form VentanaEmpleados */
+  
+    
     public VentanaEmpleados() {
         initComponents();
         this.setLocationRelativeTo(null);
+        botonSiguiente.setEnabled(false);
     }
 
     /** This method is called from within the constructor to
@@ -27,21 +30,71 @@ public class VentanaEmpleados extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
+        cajaNombre = new javax.swing.JTextField();
+        cajaApellido = new javax.swing.JTextField();
+        cajaGenero = new javax.swing.JTextField();
+        cajaFechaContratacion = new javax.swing.JTextField();
+        cajaFechaNacimiento = new javax.swing.JTextField();
+        labelNombre = new javax.swing.JLabel();
+        botonRegistrar = new javax.swing.JButton();
+        botonSiguiente = new javax.swing.JButton();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jPanel1.add(cajaNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 80, 90, 30));
+        jPanel1.add(cajaApellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 80, 90, 30));
+        jPanel1.add(cajaGenero, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 140, 90, 30));
+        jPanel1.add(cajaFechaContratacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 80, 90, 30));
+        jPanel1.add(cajaFechaNacimiento, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 140, 90, 30));
+
+        labelNombre.setText("Ingrese el Nombre");
+        jPanel1.add(labelNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 60, -1, -1));
+
+        botonRegistrar.setText("REGISTRAR");
+        botonRegistrar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                botonRegistrarMouseClicked(evt);
+            }
+        });
+        jPanel1.add(botonRegistrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 230, 110, 30));
+
+        botonSiguiente.setText("SIGUIENTE >>");
+        jPanel1.add(botonSiguiente, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 260, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 589, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 304, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void botonRegistrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonRegistrarMouseClicked
+        // TODO add your handling code here: 
+        /*
+        int option = JOptionPane.showConfirmDialog(null, "¿CONFIRMA EL REGISTRO DEL EMPLEADO?", "AVISO", JOptionPane.INFORMATION_MESSAGE);
+        
+        if (option == JOptionPane.YES_OPTION) {
+            botonSiguiente.setEnabled(true);
+        }
+        */
+        try {
+            Procedimientos.InsertarEmpleados(cajaFechaNacimiento.getText(), cajaNombre.getText(), 
+                cajaApellido.getText(), cajaGenero.getText(), cajaFechaContratacion.getText());
+        JOptionPane.showMessageDialog(getParent(), "REGISTRADO PERRO!!!", "EMPLEADOS", JOptionPane.INFORMATION_MESSAGE);  
+        } catch (Exception e) {
+        }
+   
+        
+    }//GEN-LAST:event_botonRegistrarMouseClicked
 
     /**
      * @param args the command line arguments
@@ -79,6 +132,15 @@ public class VentanaEmpleados extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton botonRegistrar;
+    private javax.swing.JButton botonSiguiente;
+    private javax.swing.JTextField cajaApellido;
+    private javax.swing.JTextField cajaFechaContratacion;
+    private javax.swing.JTextField cajaFechaNacimiento;
+    private javax.swing.JTextField cajaGenero;
+    private javax.swing.JTextField cajaNombre;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel labelNombre;
     // End of variables declaration//GEN-END:variables
 
 }
