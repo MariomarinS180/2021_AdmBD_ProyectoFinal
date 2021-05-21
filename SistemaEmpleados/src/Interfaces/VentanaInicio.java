@@ -49,7 +49,6 @@ public class VentanaInicio extends javax.swing.JFrame {
             }
         } catch (Exception e) {
         }
-        
     }
 
     @SuppressWarnings("unchecked")

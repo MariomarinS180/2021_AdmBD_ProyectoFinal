@@ -6,19 +6,42 @@
 
 package Interfaces;
 
+import java.sql.ResultSet;
+import java.util.Vector;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 import sistemaempleados.Procedimientos; 
 /**
  *
  * @author marin
  */
 public class VentanaEmpleados extends javax.swing.JFrame {
-  
+   ResultSet rs;
     
     public VentanaEmpleados() {
         initComponents();
         this.setLocationRelativeTo(null);
         botonSiguiente.setEnabled(false);
+        tablaEmpleados();
+    }
+     public void tablaEmpleados(){
+        DefaultTableModel modelo = (DefaultTableModel) tablaEmployees.getModel(); 
+        modelo.setRowCount(0);
+        rs = sistemaempleados.ConexionSQLServer.Consulta("SELECT * FROM employees");
+        try {
+            while (rs.next()) {                
+                Vector v = new Vector();               
+                v.add(rs.getInt(1)); 
+                v.add(rs.getString(2));
+                v.add(rs.getString(3)); 
+                v.add(rs.getString(4));
+                v.add(rs.getString(5));
+                v.add(rs.getString(6));
+                modelo.addRow(v);
+                tablaEmployees.setModel(modelo);
+            }
+        } catch (Exception e) {
+        }
     }
 
     /** This method is called from within the constructor to
@@ -33,24 +56,24 @@ public class VentanaEmpleados extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         cajaNombre = new javax.swing.JTextField();
         cajaApellido = new javax.swing.JTextField();
-        cajaGenero = new javax.swing.JTextField();
         cajaFechaContratacion = new javax.swing.JTextField();
         cajaFechaNacimiento = new javax.swing.JTextField();
-        labelNombre = new javax.swing.JLabel();
         botonRegistrar = new javax.swing.JButton();
         botonSiguiente = new javax.swing.JButton();
+        comboBoxGenero = new javax.swing.JComboBox<>();
+        labelNombre = new javax.swing.JLabel();
+        labelGenero = new javax.swing.JLabel();
+        labelApellido = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tablaEmployees = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        jPanel1.add(cajaNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 80, 90, 30));
-        jPanel1.add(cajaApellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 80, 90, 30));
-        jPanel1.add(cajaGenero, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 140, 90, 30));
-        jPanel1.add(cajaFechaContratacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 80, 90, 30));
-        jPanel1.add(cajaFechaNacimiento, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 140, 90, 30));
-
-        labelNombre.setText("Ingrese el Nombre");
-        jPanel1.add(labelNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 60, -1, -1));
+        jPanel1.add(cajaNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 70, 90, 30));
+        jPanel1.add(cajaApellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 60, 90, 30));
+        jPanel1.add(cajaFechaContratacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 60, 90, 30));
+        jPanel1.add(cajaFechaNacimiento, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 60, 90, 30));
 
         botonRegistrar.setText("REGISTRAR");
         botonRegistrar.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -58,20 +81,62 @@ public class VentanaEmpleados extends javax.swing.JFrame {
                 botonRegistrarMouseClicked(evt);
             }
         });
-        jPanel1.add(botonRegistrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 230, 110, 30));
+        jPanel1.add(botonRegistrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 190, 110, 30));
 
         botonSiguiente.setText("SIGUIENTE >>");
-        jPanel1.add(botonSiguiente, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 260, -1, -1));
+        jPanel1.add(botonSiguiente, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 190, -1, -1));
+
+        comboBoxGenero.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione un Género", "M", "F" }));
+        jPanel1.add(comboBoxGenero, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 170, -1, -1));
+
+        labelNombre.setText("Ingrese el Nombre");
+        jPanel1.add(labelNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 40, -1, -1));
+
+        labelGenero.setText("Masculino o Femenino");
+        jPanel1.add(labelGenero, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 150, -1, -1));
+
+        labelApellido.setText("Ingrese el Apellido");
+        jPanel1.add(labelApellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 40, -1, -1));
+
+        tablaEmployees.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
+            },
+            new String [] {
+                "Num Empleado", "Fecha Nacimiento", "Nombre", "Apellido", "Genero", "Fecha de Contratación"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                true, false, true, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(tablaEmployees);
+
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 320, 560, 100));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 589, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 807, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 304, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 440, Short.MAX_VALUE)
         );
 
         pack();
@@ -88,9 +153,10 @@ public class VentanaEmpleados extends javax.swing.JFrame {
         */
         try {
             Procedimientos.InsertarEmpleados(cajaFechaNacimiento.getText(), cajaNombre.getText(), 
-                cajaApellido.getText(), cajaGenero.getText(), cajaFechaContratacion.getText());
-        JOptionPane.showMessageDialog(getParent(), "REGISTRADO PERRO!!!", "EMPLEADOS", JOptionPane.INFORMATION_MESSAGE);  
+                cajaApellido.getText(), String.valueOf(comboBoxGenero.getSelectedItem()), cajaFechaContratacion.getText());
+        JOptionPane.showMessageDialog(getParent(), "REGISTRADO");
         } catch (Exception e) {
+            
         }
    
         
@@ -137,10 +203,14 @@ public class VentanaEmpleados extends javax.swing.JFrame {
     private javax.swing.JTextField cajaApellido;
     private javax.swing.JTextField cajaFechaContratacion;
     private javax.swing.JTextField cajaFechaNacimiento;
-    private javax.swing.JTextField cajaGenero;
     private javax.swing.JTextField cajaNombre;
+    private javax.swing.JComboBox<String> comboBoxGenero;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel labelApellido;
+    private javax.swing.JLabel labelGenero;
     private javax.swing.JLabel labelNombre;
+    private javax.swing.JTable tablaEmployees;
     // End of variables declaration//GEN-END:variables
 
 }

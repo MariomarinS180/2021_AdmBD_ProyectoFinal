@@ -13,13 +13,14 @@ public class Procedimientos {
         entrada.execute(); 
     }
     
-    public static void InsertarEmpleados(String fecha_nacimiento, String nombre, String apellido, String genero, String fecha_contratacion ) throws SQLException{
-       CallableStatement e = ConexionSQLServer.getConnection().prepareCall("{Call RegistraEmpleados (?,?,?,?,?)}");
+    public static void InsertarEmpleados(String fecha_nacimiento, String nombre, String apellido, String genero1, String fecha_contratacion ) throws SQLException{
+       CallableStatement e = ConexionSQLServer.getConnection().prepareCall("{Call RegistraEmpleados(?,?,?,?,?)}");
        e.setString(1, fecha_nacimiento);
        e.setString(2, nombre);
        e.setString(3, apellido);
-       e.setString(4, genero);
+       e.setString(4, genero1);
        e.setString(5, fecha_contratacion);
+       
        e.execute(); 
     }
 }
