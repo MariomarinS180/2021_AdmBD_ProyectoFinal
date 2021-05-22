@@ -6,6 +6,8 @@
 package Interfaces;
 
 import java.sql.ResultSet;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Vector;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -22,13 +24,16 @@ public class VentanaEmpleados extends javax.swing.JFrame {
     //int opc = JOptionPane.showInternalConfirmDialog(getParent(), )
 
     ResultSet rs;
+       
+        
 
     public VentanaEmpleados() {
         initComponents();
         this.setLocationRelativeTo(null);
         botonSiguiente.setEnabled(false);
-        
         tablaEmpleados();
+        cajaFechaContratacion.setEditable(false);
+        cajaFechaContratacion.setText(fechaActual());
     }
 
     public void tablaEmpleados() {
@@ -55,6 +60,11 @@ public class VentanaEmpleados extends javax.swing.JFrame {
         Icon img = new ImageIcon(new ImageIcon(getClass().getResource(path))
                 .getImage().getScaledInstance(width, heigth, java.awt.Image.SCALE_SMOOTH));
         return img;
+    }
+    public static String fechaActual(){
+        Date fecha = new Date(); 
+        SimpleDateFormat formato = new SimpleDateFormat("YYYY-MM-dd");
+        return formato.format(fecha); 
     }
 
     /**
@@ -83,8 +93,8 @@ public class VentanaEmpleados extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        jPanel1.add(cajaNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 70, 90, 30));
-        jPanel1.add(cajaApellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 60, 90, 30));
+        jPanel1.add(cajaNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 70, 90, 30));
+        jPanel1.add(cajaApellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 70, 90, 30));
         jPanel1.add(cajaFechaContratacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 60, 90, 30));
         jPanel1.add(cajaFechaNacimiento, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 60, 90, 30));
 
@@ -157,6 +167,9 @@ public class VentanaEmpleados extends javax.swing.JFrame {
 
     private void botonRegistrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonRegistrarMouseClicked
         ResultSet res;
+        
+      
+        
         int cont = 0;
         if (cajaFechaNacimiento.getText().isEmpty() || cajaNombre.getText().isEmpty() || cajaApellido.getText().isEmpty()
                 || comboBoxGenero.getSelectedIndex() == 0 || cajaFechaContratacion.getText().isEmpty()) {
@@ -191,28 +204,7 @@ public class VentanaEmpleados extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(VentanaEmpleados.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(VentanaEmpleados.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(VentanaEmpleados.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(VentanaEmpleados.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+       
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
