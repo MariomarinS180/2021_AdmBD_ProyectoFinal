@@ -31,7 +31,12 @@ public class VentanaEmpleados extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
         botonSiguiente.setEnabled(false);
+        cajaID.setEnabled(false);
+        cajaSalario.setEnabled(false);
+        comboBoxTitulo.setEnabled(false);
         tablaEmpleados();
+        tablaUltEmpleados();
+        ScrollPaneUltimoEmp.setVisible(false);
         cajaFechaContratacion.setEditable(false);
         cajaFechaContratacion.setText(fechaActual());
     }
@@ -39,7 +44,28 @@ public class VentanaEmpleados extends javax.swing.JFrame {
     public void tablaEmpleados() {
         DefaultTableModel modelo = (DefaultTableModel) tablaEmployees.getModel();
         modelo.setRowCount(0);
-        rs = sistemaempleados.ConexionSQLServer.Consulta("SELECT * FROM employees");
+        rs = sistemaempleados.ConexionSQLServer.Consulta("SELECT * FROM vista_tresTablas");
+        try {
+            while (rs.next()) {
+                Vector v = new Vector();
+                v.add(rs.getInt(1));
+                v.add(rs.getString(2));
+                v.add(rs.getString(3));
+                v.add(rs.getString(4));
+                v.add(rs.getString(5));
+                v.add(rs.getString(6));
+                v.add(rs.getString(7));
+                v.add(rs.getInt(8)); 
+                modelo.addRow(v);
+                tablaEmployees.setModel(modelo);
+            }
+        } catch (Exception e) {
+        }
+    }
+     public void tablaUltEmpleados() {
+        DefaultTableModel modelo = (DefaultTableModel) tablaEmployees.getModel();
+        modelo.setRowCount(0);
+        rs = sistemaempleados.ConexionSQLServer.Consulta("SELECT * FROM ultimo_empleado");
         try {
             while (rs.next()) {
                 Vector v = new Vector();
@@ -81,22 +107,32 @@ public class VentanaEmpleados extends javax.swing.JFrame {
         cajaApellido = new javax.swing.JTextField();
         cajaFechaContratacion = new javax.swing.JTextField();
         cajaFechaNacimiento = new javax.swing.JTextField();
+        cajaSalario = new javax.swing.JTextField();
+        cajaID = new javax.swing.JTextField();
         botonRegistrar = new javax.swing.JButton();
         botonSiguiente = new javax.swing.JButton();
         comboBoxGenero = new javax.swing.JComboBox<>();
         labelNombre = new javax.swing.JLabel();
         labelGenero = new javax.swing.JLabel();
         labelApellido = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
+        labelFechaNac = new javax.swing.JLabel();
+        labelNumEmp = new javax.swing.JLabel();
+        ScrollPaneEmpleados = new javax.swing.JScrollPane();
         tablaEmployees = new javax.swing.JTable();
+        comboBoxTitulo = new javax.swing.JComboBox<>();
+        labelSalario = new javax.swing.JLabel();
+        ScrollPaneUltimoEmp = new javax.swing.JScrollPane();
+        tablaUlltimoEmp = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         jPanel1.add(cajaNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 70, 90, 30));
         jPanel1.add(cajaApellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 70, 90, 30));
-        jPanel1.add(cajaFechaContratacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 60, 90, 30));
-        jPanel1.add(cajaFechaNacimiento, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 60, 90, 30));
+        jPanel1.add(cajaFechaContratacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 70, 90, 30));
+        jPanel1.add(cajaFechaNacimiento, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 70, 90, 30));
+        jPanel1.add(cajaSalario, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 220, 100, 30));
+        jPanel1.add(cajaID, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 220, 130, 30));
 
         botonRegistrar.setText("REGISTRAR");
         botonRegistrar.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -104,24 +140,70 @@ public class VentanaEmpleados extends javax.swing.JFrame {
                 botonRegistrarMouseClicked(evt);
             }
         });
-        jPanel1.add(botonRegistrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 190, 110, 30));
+        jPanel1.add(botonRegistrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 280, 110, 30));
 
         botonSiguiente.setText("SIGUIENTE >>");
-        jPanel1.add(botonSiguiente, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 190, -1, -1));
+        jPanel1.add(botonSiguiente, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 280, -1, -1));
 
         comboBoxGenero.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione un Género", "M", "F" }));
-        jPanel1.add(comboBoxGenero, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 170, -1, -1));
+        jPanel1.add(comboBoxGenero, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 150, -1, -1));
 
         labelNombre.setText("Ingrese el Nombre");
         jPanel1.add(labelNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 40, -1, -1));
 
         labelGenero.setText("Masculino o Femenino");
-        jPanel1.add(labelGenero, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 150, -1, -1));
+        jPanel1.add(labelGenero, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 130, -1, -1));
 
         labelApellido.setText("Ingrese el Apellido");
-        jPanel1.add(labelApellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 40, -1, -1));
+        jPanel1.add(labelApellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 40, -1, -1));
+
+        labelFechaNac.setText("Ingrese la Fecha de Nacimiento");
+        jPanel1.add(labelFechaNac, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 40, -1, -1));
+
+        labelNumEmp.setText("Número de Empleado");
+        jPanel1.add(labelNumEmp, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 200, -1, -1));
 
         tablaEmployees.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null}
+            },
+            new String [] {
+                "Num Empleado", "Fecha Nacimiento", "Nombre", "Apellido", "Genero", "Fecha de Contratación", "Titulo", "Salario"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        ScrollPaneEmpleados.setViewportView(tablaEmployees);
+        if (tablaEmployees.getColumnModel().getColumnCount() > 0) {
+            tablaEmployees.getColumnModel().getColumn(6).setHeaderValue("Titulo");
+            tablaEmployees.getColumnModel().getColumn(7).setHeaderValue("Salario");
+        }
+
+        jPanel1.add(ScrollPaneEmpleados, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 320, 560, 100));
+
+        comboBoxTitulo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione un Título", "Ingeniero en Sistemas Computacionales", "Ingeniero en Mecátronica", "Licenciado en Administración de Empresas" }));
+        jPanel1.add(comboBoxTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 220, 140, 20));
+
+        labelSalario.setText("Salario");
+        jPanel1.add(labelSalario, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 200, -1, -1));
+
+        tablaUlltimoEmp.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null},
                 {null, null, null, null, null, null},
@@ -136,7 +218,7 @@ public class VentanaEmpleados extends javax.swing.JFrame {
                 java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                true, false, true, false, false, false
+                false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -147,15 +229,18 @@ public class VentanaEmpleados extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(tablaEmployees);
+        ScrollPaneUltimoEmp.setViewportView(tablaUlltimoEmp);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 320, 560, 100));
+        jPanel1.add(ScrollPaneUltimoEmp, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 320, 560, 100));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 807, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 757, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -215,19 +300,27 @@ public class VentanaEmpleados extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JScrollPane ScrollPaneEmpleados;
+    private javax.swing.JScrollPane ScrollPaneUltimoEmp;
     private javax.swing.JButton botonRegistrar;
     private javax.swing.JButton botonSiguiente;
     private javax.swing.JTextField cajaApellido;
     private javax.swing.JTextField cajaFechaContratacion;
     private javax.swing.JTextField cajaFechaNacimiento;
+    private javax.swing.JTextField cajaID;
     private javax.swing.JTextField cajaNombre;
+    private javax.swing.JTextField cajaSalario;
     private javax.swing.JComboBox<String> comboBoxGenero;
+    private javax.swing.JComboBox<String> comboBoxTitulo;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel labelApellido;
+    private javax.swing.JLabel labelFechaNac;
     private javax.swing.JLabel labelGenero;
     private javax.swing.JLabel labelNombre;
+    private javax.swing.JLabel labelNumEmp;
+    private javax.swing.JLabel labelSalario;
     private javax.swing.JTable tablaEmployees;
+    private javax.swing.JTable tablaUlltimoEmp;
     // End of variables declaration//GEN-END:variables
 
 }
