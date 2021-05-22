@@ -24,8 +24,6 @@ public class VentanaEmpleados extends javax.swing.JFrame {
     //int opc = JOptionPane.showInternalConfirmDialog(getParent(), )
 
     ResultSet rs;
-       
-        
 
     public VentanaEmpleados() {
         initComponents();
@@ -37,6 +35,8 @@ public class VentanaEmpleados extends javax.swing.JFrame {
         tablaEmpleados();
         tablaUltEmpleados();
         ScrollPaneUltimoEmp.setVisible(false);
+        ScrollPaneUltimoEmp.setEnabled(false);
+        labelIntroduzca.setVisible(false);
         cajaFechaContratacion.setEditable(false);
         cajaFechaContratacion.setText(fechaActual());
     }
@@ -55,15 +55,16 @@ public class VentanaEmpleados extends javax.swing.JFrame {
                 v.add(rs.getString(5));
                 v.add(rs.getString(6));
                 v.add(rs.getString(7));
-                v.add(rs.getInt(8)); 
+                v.add(rs.getInt(8));
                 modelo.addRow(v);
                 tablaEmployees.setModel(modelo);
             }
         } catch (Exception e) {
         }
     }
-     public void tablaUltEmpleados() {
-        DefaultTableModel modelo = (DefaultTableModel) tablaEmployees.getModel();
+
+    public void tablaUltEmpleados() {
+        DefaultTableModel modelo = (DefaultTableModel) tablaUlltimoEmp.getModel();
         modelo.setRowCount(0);
         rs = sistemaempleados.ConexionSQLServer.Consulta("SELECT * FROM ultimo_empleado");
         try {
@@ -76,7 +77,7 @@ public class VentanaEmpleados extends javax.swing.JFrame {
                 v.add(rs.getString(5));
                 v.add(rs.getString(6));
                 modelo.addRow(v);
-                tablaEmployees.setModel(modelo);
+                tablaUlltimoEmp.setModel(modelo);
             }
         } catch (Exception e) {
         }
@@ -87,10 +88,11 @@ public class VentanaEmpleados extends javax.swing.JFrame {
                 .getImage().getScaledInstance(width, heigth, java.awt.Image.SCALE_SMOOTH));
         return img;
     }
-    public static String fechaActual(){
-        Date fecha = new Date(); 
+
+    public static String fechaActual() {
+        Date fecha = new Date();
         SimpleDateFormat formato = new SimpleDateFormat("YYYY-MM-dd");
-        return formato.format(fecha); 
+        return formato.format(fecha);
     }
 
     /**
@@ -106,7 +108,6 @@ public class VentanaEmpleados extends javax.swing.JFrame {
         cajaNombre = new javax.swing.JTextField();
         cajaApellido = new javax.swing.JTextField();
         cajaFechaContratacion = new javax.swing.JTextField();
-        cajaFechaNacimiento = new javax.swing.JTextField();
         cajaSalario = new javax.swing.JTextField();
         cajaID = new javax.swing.JTextField();
         botonRegistrar = new javax.swing.JButton();
@@ -123,6 +124,10 @@ public class VentanaEmpleados extends javax.swing.JFrame {
         labelSalario = new javax.swing.JLabel();
         ScrollPaneUltimoEmp = new javax.swing.JScrollPane();
         tablaUlltimoEmp = new javax.swing.JTable();
+        labelIntroduzca = new javax.swing.JLabel();
+        dateCalendario = new com.toedter.calendar.JDateChooser();
+        dateSalario = new com.toedter.calendar.JDateChooser();
+        fondo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -130,8 +135,9 @@ public class VentanaEmpleados extends javax.swing.JFrame {
         jPanel1.add(cajaNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 70, 90, 30));
         jPanel1.add(cajaApellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 70, 90, 30));
         jPanel1.add(cajaFechaContratacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 70, 90, 30));
-        jPanel1.add(cajaFechaNacimiento, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 70, 90, 30));
         jPanel1.add(cajaSalario, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 220, 100, 30));
+
+        cajaID.setBorder(null);
         jPanel1.add(cajaID, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 220, 130, 30));
 
         botonRegistrar.setText("REGISTRAR");
@@ -140,10 +146,15 @@ public class VentanaEmpleados extends javax.swing.JFrame {
                 botonRegistrarMouseClicked(evt);
             }
         });
-        jPanel1.add(botonRegistrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 280, 110, 30));
+        jPanel1.add(botonRegistrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 270, 110, 30));
 
         botonSiguiente.setText("SIGUIENTE >>");
-        jPanel1.add(botonSiguiente, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 280, -1, -1));
+        botonSiguiente.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                botonSiguienteMouseClicked(evt);
+            }
+        });
+        jPanel1.add(botonSiguiente, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 270, -1, -1));
 
         comboBoxGenero.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione un Género", "M", "F" }));
         jPanel1.add(comboBoxGenero, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 150, -1, -1));
@@ -195,10 +206,10 @@ public class VentanaEmpleados extends javax.swing.JFrame {
             tablaEmployees.getColumnModel().getColumn(7).setHeaderValue("Salario");
         }
 
-        jPanel1.add(ScrollPaneEmpleados, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 320, 560, 100));
+        jPanel1.add(ScrollPaneEmpleados, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 330, 560, 100));
 
         comboBoxTitulo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione un Título", "Ingeniero en Sistemas Computacionales", "Ingeniero en Mecátronica", "Licenciado en Administración de Empresas" }));
-        jPanel1.add(comboBoxTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 220, 140, 20));
+        jPanel1.add(comboBoxTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 220, 140, 20));
 
         labelSalario.setText("Salario");
         jPanel1.add(labelSalario, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 200, -1, -1));
@@ -229,22 +240,32 @@ public class VentanaEmpleados extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        tablaUlltimoEmp.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tablaUlltimoEmpMouseClicked(evt);
+            }
+        });
         ScrollPaneUltimoEmp.setViewportView(tablaUlltimoEmp);
 
-        jPanel1.add(ScrollPaneUltimoEmp, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 320, 560, 100));
+        jPanel1.add(ScrollPaneUltimoEmp, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 330, 560, 100));
+
+        labelIntroduzca.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        labelIntroduzca.setForeground(new java.awt.Color(0, 153, 0));
+        labelIntroduzca.setText("Verifique que los datos sean correctos e introduzca los campos restantes");
+        jPanel1.add(labelIntroduzca, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 310, -1, -1));
+        jPanel1.add(dateCalendario, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 70, 130, 30));
+        jPanel1.add(dateSalario, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 220, 130, 30));
+        jPanel1.add(fondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 810, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 757, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 808, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 440, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -252,18 +273,15 @@ public class VentanaEmpleados extends javax.swing.JFrame {
 
     private void botonRegistrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonRegistrarMouseClicked
         ResultSet res;
-        
-      
-        
         int cont = 0;
-        if (cajaFechaNacimiento.getText().isEmpty() || cajaNombre.getText().isEmpty() || cajaApellido.getText().isEmpty()
+        if (dateCalendario.getDate() == null || cajaNombre.getText().isEmpty() || cajaApellido.getText().isEmpty()
                 || comboBoxGenero.getSelectedIndex() == 0 || cajaFechaContratacion.getText().isEmpty()) {
             JOptionPane.showMessageDialog(getParent(), "INTRODUZCA TODOS LOS CAMPOS", "¡OJITO!", JOptionPane.INFORMATION_MESSAGE, icono("/Imagenes/iconoLlenarDat.png", 50, 50));
         } else {
             try {
-                res = sistemaempleados.ConexionSQLServer.Consulta("");
+                res = sistemaempleados.ConexionSQLServer.Consulta("SELECT COUNT(nombre) as Nombre, COUNT(fecha_nacimiento) from employees where nombre ='" + cajaNombre.getText() + "' and fecha_nacimiento = '" + dateCalendario.getDate().getTime() + "'");
                 try {
-                    while (rs.next()) {
+                    while (res.next()) {
                         cont = res.getInt(1);
                     }
                 } catch (Exception e) {
@@ -271,13 +289,20 @@ public class VentanaEmpleados extends javax.swing.JFrame {
                 if (cont >= 1) {
                     JOptionPane.showMessageDialog(getParent(), "YA HA REGISTRADO AL EMPLEADO", "EMPLEADO EXISTENTE", JOptionPane.ERROR_MESSAGE);
                 } else {
-                   int opcionC = JOptionPane.showConfirmDialog(null, "¿CONFIRMA EL REGISTRO DEL EMPLEADO?", "AVISO", JOptionPane.INFORMATION_MESSAGE);
+                    int opcionC = JOptionPane.showConfirmDialog(null, "¿CONFIRMA EL REGISTRO DEL EMPLEADO?", "AVISO", JOptionPane.INFORMATION_MESSAGE);
                     if (opcionC == JOptionPane.YES_OPTION) {
-                        Procedimientos.InsertarEmpleados(cajaFechaNacimiento.getText(), cajaNombre.getText(),
+                        Procedimientos.InsertarEmpleados(new java.sql.Date(dateCalendario.getDate().getTime()), cajaNombre.getText(),
                                 cajaApellido.getText(), String.valueOf(comboBoxGenero.getSelectedItem()), cajaFechaContratacion.getText());
                         JOptionPane.showMessageDialog(getParent(), "REGISTRADO");
-                        tablaEmpleados();
+                        tablaUltEmpleados();
                         botonSiguiente.setEnabled(true);
+                        ScrollPaneEmpleados.setVisible(false);
+                        ScrollPaneUltimoEmp.setVisible(true);
+                        cajaID.setEnabled(true);
+                        cajaSalario.setEnabled(true);
+                        comboBoxTitulo.setEnabled(true);
+                        labelIntroduzca.setVisible(true);
+
                     }
                 }
             } catch (Exception e) {
@@ -285,11 +310,33 @@ public class VentanaEmpleados extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_botonRegistrarMouseClicked
 
+    private void botonSiguienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonSiguienteMouseClicked
+
+        try {
+            int opcionC = JOptionPane.showConfirmDialog(null, "¿CONFIRMA EL REGISTRO DEL SALARIO Y EL TÍTULO?", "AVISO", JOptionPane.INFORMATION_MESSAGE);
+            if (opcionC == JOptionPane.YES_OPTION) {
+                Procedimientos.InsertarSalario(Integer.parseInt(cajaID.getText()), Integer.parseInt(cajaSalario.getText()), 
+                        cajaFechaContratacion.getText(), new java.sql.Date(dateSalario.getDate().getTime()) );
+                Procedimientos.InsertarTitulos(Integer.parseInt(cajaID.getText()), String.valueOf(comboBoxTitulo.getSelectedItem()), 
+                        cajaFechaContratacion.getText(), new java.sql.Date(dateSalario.getDate().getTime()));
+                JOptionPane.showMessageDialog(getParent(), "REGISTRADO");
+            }
+        } catch (Exception e) {
+        }
+
+
+    }//GEN-LAST:event_botonSiguienteMouseClicked
+
+    private void tablaUlltimoEmpMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaUlltimoEmpMouseClicked
+        int select = tablaUlltimoEmp.rowAtPoint(evt.getPoint());
+        cajaID.setText(String.valueOf(tablaUlltimoEmp.getValueAt(select, 0)));
+    }//GEN-LAST:event_tablaUlltimoEmpMouseClicked
+
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-       
+
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -306,16 +353,19 @@ public class VentanaEmpleados extends javax.swing.JFrame {
     private javax.swing.JButton botonSiguiente;
     private javax.swing.JTextField cajaApellido;
     private javax.swing.JTextField cajaFechaContratacion;
-    private javax.swing.JTextField cajaFechaNacimiento;
     private javax.swing.JTextField cajaID;
     private javax.swing.JTextField cajaNombre;
     private javax.swing.JTextField cajaSalario;
     private javax.swing.JComboBox<String> comboBoxGenero;
     private javax.swing.JComboBox<String> comboBoxTitulo;
+    private com.toedter.calendar.JDateChooser dateCalendario;
+    private com.toedter.calendar.JDateChooser dateSalario;
+    private javax.swing.JLabel fondo;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel labelApellido;
     private javax.swing.JLabel labelFechaNac;
     private javax.swing.JLabel labelGenero;
+    private javax.swing.JLabel labelIntroduzca;
     private javax.swing.JLabel labelNombre;
     private javax.swing.JLabel labelNumEmp;
     private javax.swing.JLabel labelSalario;

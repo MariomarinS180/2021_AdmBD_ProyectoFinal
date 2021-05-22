@@ -70,6 +70,11 @@ public class VentanaInicio extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
 
+        jPanel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel1MouseClicked(evt);
+            }
+        });
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         tablaVistaEmpleados.setBackground(new java.awt.Color(153, 204, 255));
@@ -221,6 +226,10 @@ public class VentanaInicio extends javax.swing.JFrame {
        setVisible(false);  
         
     }//GEN-LAST:event_labelBusquedaMouseClicked
+
+    private void jPanel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jPanel1MouseClicked
 
     public static void main(String args[]) {
         
