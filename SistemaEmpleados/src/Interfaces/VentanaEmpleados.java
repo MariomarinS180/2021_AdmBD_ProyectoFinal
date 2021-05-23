@@ -144,9 +144,11 @@ public class VentanaEmpleados extends javax.swing.JFrame {
         labelIntroduzca = new javax.swing.JLabel();
         dateCalendario = new com.toedter.calendar.JDateChooser();
         dateSalario = new com.toedter.calendar.JDateChooser();
+        botonRegresar = new javax.swing.JButton();
         fondo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         jPanel1.add(cajaNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 90, 120, 30));
@@ -296,6 +298,16 @@ public class VentanaEmpleados extends javax.swing.JFrame {
         jPanel1.add(dateCalendario, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 170, 150, 30));
         jPanel1.add(dateSalario, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 310, 150, 30));
 
+        botonRegresar.setFont(new java.awt.Font("Microsoft YaHei UI", 2, 10)); // NOI18N
+        botonRegresar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/home.png"))); // NOI18N
+        botonRegresar.setText("INICIO");
+        botonRegresar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                botonRegresarMouseClicked(evt);
+            }
+        });
+        jPanel1.add(botonRegresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 10, -1, -1));
+
         fondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/VentanaEmpleado.jpg"))); // NOI18N
         jPanel1.add(fondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 660, -1));
 
@@ -402,6 +414,12 @@ public class VentanaEmpleados extends javax.swing.JFrame {
         cajaID.setText(String.valueOf(tablaUlltimoEmp.getValueAt(select, 0)));
     }//GEN-LAST:event_tablaUlltimoEmpMouseClicked
 
+    private void botonRegresarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonRegresarMouseClicked
+        VentanaInicio vi = new VentanaInicio(); 
+        vi.setVisible(true);
+        setVisible(false);
+    }//GEN-LAST:event_botonRegresarMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -420,6 +438,7 @@ public class VentanaEmpleados extends javax.swing.JFrame {
     private javax.swing.JScrollPane ScrollPaneEmpleados;
     private javax.swing.JScrollPane ScrollPaneUltimoEmp;
     private javax.swing.JButton botonRegistrar;
+    private javax.swing.JButton botonRegresar;
     private javax.swing.JButton botonSiguiente;
     private javax.swing.JTextField cajaApellido;
     private javax.swing.JTextField cajaFechaContratacion;
