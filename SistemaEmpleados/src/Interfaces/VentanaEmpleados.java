@@ -11,7 +11,10 @@ import java.util.Date;
 import java.util.Vector;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.JComboBox;
+import javax.swing.JComponent;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import sistemaempleados.Procedimientos;
 
@@ -28,7 +31,7 @@ public class VentanaEmpleados extends javax.swing.JFrame {
     public VentanaEmpleados() {
         initComponents();
         this.setLocationRelativeTo(null);
-        botonSiguiente.setEnabled(false);
+        botonSiguiente.setVisible(false);
         cajaID.setEnabled(false);
         cajaSalario.setEnabled(false);
         comboBoxTitulo.setEnabled(false);
@@ -96,6 +99,15 @@ public class VentanaEmpleados extends javax.swing.JFrame {
         SimpleDateFormat formato = new SimpleDateFormat("YYYY-MM-dd");
         return formato.format(fecha);
     }
+    public void restablecerComponentes(JComponent... componentesGraficos) {
+        for (JComponent c : componentesGraficos) {
+            if (c instanceof JTextField) {
+                ((JTextField) c).setText("");
+            } else if (c instanceof JComboBox) {
+                ((JComboBox) c).setSelectedIndex(0);
+            }
+        }
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -151,7 +163,7 @@ public class VentanaEmpleados extends javax.swing.JFrame {
                 botonRegistrarMouseClicked(evt);
             }
         });
-        jPanel1.add(botonRegistrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 240, 110, 30));
+        jPanel1.add(botonRegistrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 160, 110, 30));
 
         botonSiguiente.setText("ASIGNAR");
         botonSiguiente.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -159,7 +171,7 @@ public class VentanaEmpleados extends javax.swing.JFrame {
                 botonSiguienteMouseClicked(evt);
             }
         });
-        jPanel1.add(botonSiguiente, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 320, 100, 30));
+        jPanel1.add(botonSiguiente, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 330, 100, 30));
 
         comboBoxGenero.setFont(new java.awt.Font("Candara", 0, 14)); // NOI18N
         comboBoxGenero.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione un Género", "M", "F" }));
@@ -304,8 +316,6 @@ public class VentanaEmpleados extends javax.swing.JFrame {
     private void botonRegistrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonRegistrarMouseClicked
         ResultSet res;
         int cont = 0;
-        //dateCalendario.getDate() == null
-
         if (dateCalendario.getDate() == null || cajaNombre.getText().isEmpty() || cajaApellido.getText().isEmpty()
                 || comboBoxGenero.getSelectedIndex() == 0) {
             JOptionPane.showMessageDialog(getParent(), "INTRODUZCA TODOS LOS CAMPOS", "¡OJITO!", JOptionPane.INFORMATION_MESSAGE, icono("/Imagenes/iconoLlenarDat.png", 50, 50));
@@ -327,13 +337,19 @@ public class VentanaEmpleados extends javax.swing.JFrame {
                                 cajaApellido.getText(), String.valueOf(comboBoxGenero.getSelectedItem()), cajaFechaContratacion.getText());
                         JOptionPane.showMessageDialog(getParent(), "REGISTRADO");
                         tablaUltEmpleados();
-                        botonSiguiente.setEnabled(true);
+                        botonSiguiente.setVisible(true);
                         ScrollPaneEmpleados.setVisible(false);
                         ScrollPaneUltimoEmp.setVisible(true);
                         cajaSalario.setEnabled(true);
                         comboBoxTitulo.setEnabled(true);
                         labelIntroduzca.setVisible(true);
                         dateSalario.setEnabled(true);
+                        
+                        //datos1
+                        cajaNombre.setEditable(false);
+                        cajaApellido.setEditable(false);
+                        comboBoxGenero.setEditable(false);
+                        dateCalendario.setEnabled(false);
 
                     }
                 }
@@ -343,6 +359,7 @@ public class VentanaEmpleados extends javax.swing.JFrame {
     }//GEN-LAST:event_botonRegistrarMouseClicked
 
     private void botonSiguienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonSiguienteMouseClicked
+
         if (cajaID.getText().isEmpty()) {
             JOptionPane.showMessageDialog(getParent(), "DEBE SELECCIONAR EL REGISTRO", "¡OJITO!", JOptionPane.ERROR_MESSAGE);
         } else if (cajaSalario.getText().isEmpty()) {
@@ -360,25 +377,24 @@ public class VentanaEmpleados extends javax.swing.JFrame {
                     Procedimientos.InsertarTitulos(Integer.parseInt(cajaID.getText()), String.valueOf(comboBoxTitulo.getSelectedItem()),
                             cajaFechaContratacion.getText(), new java.sql.Date(dateSalario.getDate().getTime()));
                     JOptionPane.showMessageDialog(getParent(), "REGISTRADO");
+                    tablaEmpleados();
+                    botonSiguiente.setEnabled(false);
+                    ScrollPaneEmpleados.setVisible(true);
+                    ScrollPaneUltimoEmp.setVisible(false);
+                    cajaSalario.setEnabled(false);
+                    comboBoxTitulo.setEnabled(false);
+                    labelIntroduzca.setVisible(false);
+                    dateSalario.setEnabled(false);
+                    restablecerComponentes(
+                            cajaNombre,
+                            cajaApellido,
+                            comboBoxGenero,
+                            dateCalendario,
+                            cajaID, cajaSalario, cajaFechaContratacion,comboBoxTitulo);
                 }
             } catch (Exception e) {
             }
-        }
-
-        /*    
-        try {
-            int opcionC = JOptionPane.showConfirmDialog(null, "¿CONFIRMA EL REGISTRO DEL SALARIO Y EL TÍTULO?", "AVISO", JOptionPane.INFORMATION_MESSAGE);
-            if (opcionC == JOptionPane.YES_OPTION) {
-                Procedimientos.InsertarSalario(Integer.parseInt(cajaID.getText()), Integer.parseInt(cajaSalario.getText()), 
-                        cajaFechaContratacion.getText(), new java.sql.Date(dateSalario.getDate().getTime()) );
-                Procedimientos.InsertarTitulos(Integer.parseInt(cajaID.getText()), String.valueOf(comboBoxTitulo.getSelectedItem()), 
-                        cajaFechaContratacion.getText(), new java.sql.Date(dateSalario.getDate().getTime()));
-                JOptionPane.showMessageDialog(getParent(), "REGISTRADO");
-            }
-        } catch (Exception e) {
-        }
-         */
-
+        }//fin del else
     }//GEN-LAST:event_botonSiguienteMouseClicked
 
     private void tablaUlltimoEmpMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaUlltimoEmpMouseClicked
