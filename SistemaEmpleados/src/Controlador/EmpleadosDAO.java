@@ -6,6 +6,7 @@
 package Controlador;
 
 import sistemaempleados.ConexionSQLServer;
+import Modelo.Empleados; 
 
 /**
  *
@@ -17,5 +18,13 @@ public class EmpleadosDAO {
         String sql = "INSERT INTO usuarios2 VALUES('"+i.getUsuario()+"', '"+i.getPassword()+"');";
         return new ConexionSQLServer().ejecutarInstruccion(sql); 
     }
+    public boolean modificarEmpleado(Empleados e){
+        String sql = "update employees set nombre='"+e.getNombre()+"', apellido='"+e.getApellido()+"', '"+e.getGenero()+"' where emp_no= "+e.getEmp_no()+""; 
+        return new ConexionSQLServer().ejecutarInstruccion(sql); 
+    }
+    public boolean eliminarEmpleado(String codigoLibro) {
+		String sql = "DELETE FROM employees WHERE emp_no = '"+codigoLibro+"'";
+		return new ConexionSQLServer().ejecutarInstruccion(sql); 
+	}
     
 }

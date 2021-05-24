@@ -1,5 +1,7 @@
 package Interfaces;
 
+import Controlador.EmpleadosDAO;
+import Modelo.Empleados;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.Vector;
@@ -15,6 +17,7 @@ public class VentanaGestionar extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
         tablaEmpleados();
+        cajaFechaRegG.setEnabled(false);
     }
 
     public void tablaEmpleados() {
@@ -86,6 +89,11 @@ public class VentanaGestionar extends javax.swing.JFrame {
         jPanel1.add(botonModificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(448, 168, -1, -1));
 
         botonEliminar.setText("ELIMINAR");
+        botonEliminar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                botonEliminarMouseClicked(evt);
+            }
+        });
         jPanel1.add(botonEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(339, 168, -1, -1));
 
         tablaEmployees.setBackground(new java.awt.Color(204, 204, 255));
@@ -153,19 +161,22 @@ public class VentanaGestionar extends javax.swing.JFrame {
         comboBoxTituloG.setSelectedItem(String.valueOf(tablaEmployees.getValueAt(s, 6)));
         cajaSalarioG.setText(String.valueOf(tablaEmployees.getValueAt(s, 7)));
         cajaContratoG.setText(String.valueOf(tablaEmployees.getValueAt(s, 8)));
-        //dateFechaContratoG.setDate((java.util.Date)tablaEmployees.getValueAt(s, 8));
-
-        //
-
     }//GEN-LAST:event_tablaEmployeesMouseClicked
 
     private void botonModificarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonModificarMouseClicked
         // TODO add your handling code here:
+        String genero=""; 
+        if(comboBoxGeneroG.getSelectedIndex()==1){
+          genero="M";  
+        }else if(comboBoxGeneroG.getSelectedIndex()==2){
+            genero="F";
+        }
         int opcionC = JOptionPane.showConfirmDialog(null, "¿CONFIRMA LA ACTUALIZACIÓN DEL EMPLEADO?", "AVISO", JOptionPane.INFORMATION_MESSAGE);
         try {
             if (opcionC == JOptionPane.YES_OPTION) {
-                PreparedStatement pps = sistemaempleados.ConexionSQLServer.getConnection().prepareStatement("update employees set nombre='"+cajaNombreG.getText()+"', apellido='"+cajaApellidoG.getText()+"' where emp_no= '"+cajaEmpNo.getText()+"'");
+                PreparedStatement pps = sistemaempleados.ConexionSQLServer.getConnection().prepareStatement("update employees set nombre='"+cajaNombreG.getText()+"', apellido='"+cajaApellidoG.getText()+"', genero='"+genero+"', fecha_nacimiento='"+cajaFechaNacG.getText()+"' where emp_no= '"+cajaEmpNo.getText()+"'");
                 //"'where emp_no = '"+cajaEmpNo.getText()+"'
+                //boolean res = new EmpleadosDAO().modificarEmpleado(new Empleados(Integer.parseInt(cajaEmpNo.getText()), cajaNombreG.getText(), cajaApellidoG.getText(), String.valueOf(comboBoxGeneroG.getSelectedIndex())));
                 JOptionPane.showMessageDialog(getParent(), "MODIFICADO");
                 pps.executeUpdate();
                 tablaEmpleados();
@@ -175,6 +186,20 @@ public class VentanaGestionar extends javax.swing.JFrame {
         } catch (Exception e) {
         }
     }//GEN-LAST:event_botonModificarMouseClicked
+
+    private void botonEliminarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonEliminarMouseClicked
+        // TODO add your handling code here:
+         int opcionC = JOptionPane.showConfirmDialog(null, "¿CONFIRMA LA ELIMINACIÓN DEL EMPLEADO?", "AVISO", JOptionPane.INFORMATION_MESSAGE);
+        try {
+            if (opcionC == JOptionPane.YES_OPTION) {
+                boolean res = new EmpleadosDAO().eliminarEmpleado(cajaEmpNo.getText()); 
+                JOptionPane.showMessageDialog(getParent(), "ELIMINADO");          
+            }
+
+        } catch (Exception e) {
+        }
+        tablaEmpleados();
+    }//GEN-LAST:event_botonEliminarMouseClicked
 
     /**
      * @param args the command line arguments
