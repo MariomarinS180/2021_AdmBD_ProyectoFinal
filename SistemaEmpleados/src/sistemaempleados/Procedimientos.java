@@ -37,4 +37,12 @@ public class Procedimientos {
        e.setDate(4, hasta_fecha);
        e.execute();  
     }
+    public static void ModificarEmpleado(int emp, String nombre, String apellido, String genero1) throws SQLException{
+      CallableStatement e = ConexionSQLServer.getConnection().prepareCall("{Call actualizarEmpleadoo(?,?,?.?)}");
+      e.setInt(1, emp);
+      e.setString(2, nombre);
+      e.setString(3, apellido);
+      e.setString(4, genero1);
+      e.execute(); 
+    }
 }

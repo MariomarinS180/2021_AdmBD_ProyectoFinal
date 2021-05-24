@@ -175,6 +175,7 @@ public class VentanaEmpleados extends javax.swing.JFrame {
 
         comboBoxGenero.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         comboBoxGenero.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione un Género", "M", "F" }));
+        comboBoxGenero.setBorder(null);
         jPanel1.add(comboBoxGenero, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 90, 190, 30));
 
         labelNombre.setFont(new java.awt.Font("Candara", 1, 16)); // NOI18N
