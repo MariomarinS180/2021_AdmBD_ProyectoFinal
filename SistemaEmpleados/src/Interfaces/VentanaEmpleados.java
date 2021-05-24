@@ -99,6 +99,7 @@ public class VentanaEmpleados extends javax.swing.JFrame {
         SimpleDateFormat formato = new SimpleDateFormat("YYYY-MM-dd");
         return formato.format(fecha);
     }
+
     public void restablecerComponentes(JComponent... componentesGraficos) {
         for (JComponent c : componentesGraficos) {
             if (c instanceof JTextField) {
@@ -350,18 +351,19 @@ public class VentanaEmpleados extends javax.swing.JFrame {
                         JOptionPane.showMessageDialog(getParent(), "REGISTRADO");
                         tablaUltEmpleados();
                         botonSiguiente.setVisible(true);
-                        ScrollPaneEmpleados.setVisible(false);
                         ScrollPaneUltimoEmp.setVisible(true);
                         cajaSalario.setEnabled(true);
                         comboBoxTitulo.setEnabled(true);
                         labelIntroduzca.setVisible(true);
                         dateSalario.setEnabled(true);
-                        
+
                         //datos1
                         cajaNombre.setEditable(false);
                         cajaApellido.setEditable(false);
-                        comboBoxGenero.setEditable(false);
+                        comboBoxGenero.setEnabled(false);
                         dateCalendario.setEnabled(false);
+                        botonRegistrar.setVisible(false);
+                        ScrollPaneEmpleados.setVisible(false);
 
                     }
                 }
@@ -390,19 +392,26 @@ public class VentanaEmpleados extends javax.swing.JFrame {
                             cajaFechaContratacion.getText(), new java.sql.Date(dateSalario.getDate().getTime()));
                     JOptionPane.showMessageDialog(getParent(), "REGISTRADO");
                     tablaEmpleados();
-                    botonSiguiente.setEnabled(false);
-                    ScrollPaneEmpleados.setVisible(true);
+                    restablecerComponentes(
+                            cajaNombre,
+                            cajaApellido,
+                            comboBoxGenero,
+                            cajaID, cajaSalario, comboBoxTitulo);
+
+                    botonSiguiente.setVisible(false);
                     ScrollPaneUltimoEmp.setVisible(false);
                     cajaSalario.setEnabled(false);
                     comboBoxTitulo.setEnabled(false);
                     labelIntroduzca.setVisible(false);
                     dateSalario.setEnabled(false);
-                    restablecerComponentes(
-                            cajaNombre,
-                            cajaApellido,
-                            comboBoxGenero,
-                            dateCalendario,
-                            cajaID, cajaSalario, cajaFechaContratacion,comboBoxTitulo);
+                    //datos1
+                    cajaNombre.setEditable(true);
+                    cajaApellido.setEditable(true);
+                    comboBoxGenero.setEnabled(true);
+                    dateCalendario.setEnabled(true);
+                    botonRegistrar.setVisible(true);
+                    ScrollPaneEmpleados.setVisible(true);
+
                 }
             } catch (Exception e) {
             }
@@ -415,7 +424,7 @@ public class VentanaEmpleados extends javax.swing.JFrame {
     }//GEN-LAST:event_tablaUlltimoEmpMouseClicked
 
     private void botonRegresarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonRegresarMouseClicked
-        VentanaInicio vi = new VentanaInicio(); 
+        VentanaInicio vi = new VentanaInicio();
         vi.setVisible(true);
         setVisible(false);
     }//GEN-LAST:event_botonRegresarMouseClicked
