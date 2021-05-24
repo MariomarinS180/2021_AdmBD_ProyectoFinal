@@ -23,11 +23,7 @@ import sistemaempleados.Procedimientos;
  * @author marin
  */
 public class VentanaEmpleados extends javax.swing.JFrame {
-    //int opcionC= JOptionPane.showConfirmDialog(null, "¿CONFIRMA EL REGISTRO DEL EMPLEADO?", "AVISO", JOptionPane.INFORMATION_MESSAGE);
-    //int opc = JOptionPane.showInternalConfirmDialog(getParent(), )
-
     ResultSet rs;
-
     public VentanaEmpleados() {
         initComponents();
         this.setLocationRelativeTo(null);
@@ -161,6 +157,7 @@ public class VentanaEmpleados extends javax.swing.JFrame {
         jPanel1.add(cajaID, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 260, 40, 30));
 
         botonRegistrar.setText("REGISTRAR");
+        botonRegistrar.setBorder(null);
         botonRegistrar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 botonRegistrarMouseClicked(evt);
@@ -176,7 +173,7 @@ public class VentanaEmpleados extends javax.swing.JFrame {
         });
         jPanel1.add(botonSiguiente, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 330, 100, 30));
 
-        comboBoxGenero.setFont(new java.awt.Font("Candara", 0, 14)); // NOI18N
+        comboBoxGenero.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         comboBoxGenero.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione un Género", "M", "F" }));
         jPanel1.add(comboBoxGenero, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 90, 190, 30));
 
@@ -252,7 +249,7 @@ public class VentanaEmpleados extends javax.swing.JFrame {
 
         comboBoxTitulo.setFont(new java.awt.Font("Candara", 0, 14)); // NOI18N
         comboBoxTitulo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione un Título", "Ingeniero en Sistemas Computacionales", "Ingeniero en Mecátronica", "Licenciado en Administración de Empresas" }));
-        jPanel1.add(comboBoxTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 260, 210, 20));
+        jPanel1.add(comboBoxTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 260, 270, 20));
 
         labelSalario.setFont(new java.awt.Font("Candara", 1, 16)); // NOI18N
         labelSalario.setText("Salario");
