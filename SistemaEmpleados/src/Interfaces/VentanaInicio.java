@@ -5,16 +5,27 @@
  */
 package Interfaces;
 
+import Gráfica.GraficaEmpleados;
+import java.net.URL;
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.util.Vector;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.util.JRLoader;
+import net.sf.jasperreports.view.JasperViewer;
 import sistemaempleados.ConexionSQLServer;
+import sistemaempleados.ConexionSQLServer; 
+
 
 public class VentanaInicio extends javax.swing.JFrame {
-     ResultSet rs;
+
+    ResultSet rs;
 
     public VentanaInicio() {
         initComponents();
@@ -23,27 +34,35 @@ public class VentanaInicio extends javax.swing.JFrame {
         labelImagenDosOpc.setEnabled(false);
         labelImagenDosOpc.setVisible(false);
         labelCerrarSesion.setEnabled(false);
-        labelCerrarSesion.setVisible(false);  
+        labelCerrarSesion.setVisible(false);
         labelIniciarSesion.setEnabled(false);
-        labelIniciarSesion.setVisible(false);  
+        labelIniciarSesion.setVisible(false);
+        iconoEnBD();
     }
-    public Icon icono(String path, int width, int heigth){
+    public void iconoEnBD() {
+        URL url = getClass().getResource("/imagenes/ICONOENBD.png");
+        ImageIcon icono = new ImageIcon(url);
+        setIconImage(icono.getImage());
+    }
+
+    public Icon icono(String path, int width, int heigth) {
         Icon img = new ImageIcon(new ImageIcon(getClass().getResource(path))
-        .getImage().getScaledInstance(width, heigth, java.awt.Image.SCALE_SMOOTH));
-        return img; 
+                .getImage().getScaledInstance(width, heigth, java.awt.Image.SCALE_SMOOTH));
+        return img;
     }
-    public void tablaEmpleados(){
-        DefaultTableModel modelo = (DefaultTableModel) tablaVistaEmpleados.getModel(); 
+
+    public void tablaEmpleados() {
+        DefaultTableModel modelo = (DefaultTableModel) tablaVistaEmpleados.getModel();
         modelo.setRowCount(0);
         rs = sistemaempleados.ConexionSQLServer.Consulta("SELECT * FROM employees");
         try {
-            while (rs.next()) {                
-                Vector v = new Vector();               
-                v.add(rs.getInt(1)); 
+            while (rs.next()) {
+                Vector v = new Vector();
+                v.add(rs.getInt(1));
                 v.add(rs.getString(2));
-                v.add(rs.getString(3)); 
+                v.add(rs.getString(3));
                 v.add(rs.getString(4));
-                v.add(rs.getString(5)); 
+                v.add(rs.getString(5));
                 modelo.addRow(v);
                 tablaVistaEmpleados.setModel(modelo);
             }
@@ -66,6 +85,9 @@ public class VentanaInicio extends javax.swing.JFrame {
         labelSet1 = new javax.swing.JLabel();
         labelImagenDosOpc = new javax.swing.JLabel();
         iconoGestionarEmpleado = new javax.swing.JLabel();
+        iconoGrafica = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        iconoReporteDeEmpleados = new javax.swing.JLabel();
         fondo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -109,7 +131,7 @@ public class VentanaInicio extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(tablaVistaEmpleados);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 290, 570, 110));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 320, 570, 110));
 
         labelBusqueda.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -158,7 +180,35 @@ public class VentanaInicio extends javax.swing.JFrame {
         jPanel1.add(labelImagenDosOpc, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 270, -1, -1));
 
         iconoGestionarEmpleado.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/MenuGestionarEmpleado.png"))); // NOI18N
-        jPanel1.add(iconoGestionarEmpleado, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 30, 180, 170));
+        iconoGestionarEmpleado.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                iconoGestionarEmpleadoMouseClicked(evt);
+            }
+        });
+        jPanel1.add(iconoGestionarEmpleado, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 30, 180, 170));
+
+        iconoGrafica.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icono_grafica.png"))); // NOI18N
+        iconoGrafica.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                iconoGraficaMouseClicked(evt);
+            }
+        });
+        jPanel1.add(iconoGrafica, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 10, 190, 200));
+
+        jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel1MouseClicked(evt);
+            }
+        });
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 140, 140, 40));
+
+        iconoReporteDeEmpleados.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/BannerReporte.png"))); // NOI18N
+        iconoReporteDeEmpleados.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                iconoReporteDeEmpleadosMouseClicked(evt);
+            }
+        });
+        jPanel1.add(iconoReporteDeEmpleados, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 230, 320, 70));
 
         fondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/DiseñoMenuDesplegable.jpg"))); // NOI18N
         jPanel1.add(fondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 810, 440));
@@ -178,65 +228,99 @@ public class VentanaInicio extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void labelSet1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelSet1MouseClicked
-       labelImagenDosOpc.setEnabled(false);
-       labelImagenDosOpc.setVisible(false);
-       labelCerrarSesion.setEnabled(false);
-       labelCerrarSesion.setVisible(false);
-       labelIniciarSesion.setEnabled(false);
-       labelIniciarSesion.setVisible(false);  
-       labelSet1.setEnabled(false);
-       labelSet1.setVisible(false);
-       labelSet2.setEnabled(true);
-       labelSet2.setVisible(true);
+        labelImagenDosOpc.setEnabled(false);
+        labelImagenDosOpc.setVisible(false);
+        labelCerrarSesion.setEnabled(false);
+        labelCerrarSesion.setVisible(false);
+        labelIniciarSesion.setEnabled(false);
+        labelIniciarSesion.setVisible(false);
+        labelSet1.setEnabled(false);
+        labelSet1.setVisible(false);
+        labelSet2.setEnabled(true);
+        labelSet2.setVisible(true);
     }//GEN-LAST:event_labelSet1MouseClicked
 
     private void labelSet2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelSet2MouseClicked
-       labelImagenDosOpc.setEnabled(true);
-       labelImagenDosOpc.setVisible(true);
-       labelCerrarSesion.setEnabled(true);
-       labelCerrarSesion.setVisible(true);
-       labelIniciarSesion.setEnabled(true);
-       labelIniciarSesion.setVisible(true);  
-       labelSet1.setEnabled(true);
-       labelSet1.setVisible(true);
-       labelSet2.setEnabled(false);
-       labelSet2.setVisible(false);
-       
+        labelImagenDosOpc.setEnabled(true);
+        labelImagenDosOpc.setVisible(true);
+        labelCerrarSesion.setEnabled(true);
+        labelCerrarSesion.setVisible(true);
+        labelIniciarSesion.setEnabled(true);
+        labelIniciarSesion.setVisible(true);
+        labelSet1.setEnabled(true);
+        labelSet1.setVisible(true);
+        labelSet2.setEnabled(false);
+        labelSet2.setVisible(false);
+
     }//GEN-LAST:event_labelSet2MouseClicked
 
     private void labelCerrarSesionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelCerrarSesionMouseClicked
-        Loggin vi = new Loggin(); 
+        Loggin vi = new Loggin();
         vi.setVisible(true);
         setVisible(false);
-        JOptionPane.showMessageDialog(getParent(), "SE CERRÓ SESIÓN CORRECTAMENTE", "ADIÓS:(", JOptionPane.INFORMATION_MESSAGE, icono("/Imagenes/iconoCerrarSesion.png",50,50));
+        JOptionPane.showMessageDialog(getParent(), "SE CERRÓ SESIÓN CORRECTAMENTE", "ADIÓS:(", JOptionPane.INFORMATION_MESSAGE, icono("/Imagenes/iconoCerrarSesion.png", 50, 50));
     }//GEN-LAST:event_labelCerrarSesionMouseClicked
 
     private void labelIniciarSesionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelIniciarSesionMouseClicked
-       LogginRegistrar lg = new LogginRegistrar(); 
-       lg.setVisible(true);
-       setVisible(false); 
-       JOptionPane.showMessageDialog(getParent(), "CREACIÓN DE USUARIO NUEVO", "BIENVENIDO", JOptionPane.INFORMATION_MESSAGE, icono("/Imagenes/iconoCrearUsuario.png",50,50));
+        LogginRegistrar lg = new LogginRegistrar();
+        lg.setVisible(true);
+        setVisible(false);
+        JOptionPane.showMessageDialog(getParent(), "CREACIÓN DE USUARIO NUEVO", "BIENVENIDO", JOptionPane.INFORMATION_MESSAGE, icono("/Imagenes/iconoCrearUsuario.png", 50, 50));
     }//GEN-LAST:event_labelIniciarSesionMouseClicked
 
     private void labelAgregarUsuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelAgregarUsuarioMouseClicked
-       VentanaEmpleados ve = new VentanaEmpleados(); 
-       ve.setVisible(true);
-       setVisible(false);  
+        VentanaEmpleados ve = new VentanaEmpleados();
+        ve.setVisible(true);
+        setVisible(false);
     }//GEN-LAST:event_labelAgregarUsuarioMouseClicked
 
     private void labelBusquedaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelBusquedaMouseClicked
         VentanaConsultas ve = new VentanaConsultas();
-       ve.setVisible(true);
-       setVisible(false);  
-        
+        ve.setVisible(true);
+        setVisible(false);
+
     }//GEN-LAST:event_labelBusquedaMouseClicked
 
     private void jPanel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_jPanel1MouseClicked
 
+    private void iconoGestionarEmpleadoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_iconoGestionarEmpleadoMouseClicked
+        VentanaGestionar vg = new VentanaGestionar();
+        vg.setVisible(true);
+        setVisible(false);
+    }//GEN-LAST:event_iconoGestionarEmpleadoMouseClicked
+
+    private void iconoReporteDeEmpleadosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_iconoReporteDeEmpleadosMouseClicked
+        // TODO add your handling code here:
+        ConexionSQLServer con = new ConexionSQLServer(); 
+        Connection conexion = con.getConnection(); 
+        try {
+            String ruta = System.getProperty("user.dir") + "/src/reporte/report1.jasper";
+            JasperReport jr = (JasperReport) JRLoader.loadObjectFromFile(ruta);
+            JasperPrint pt = JasperFillManager.fillReport(ruta, null, conexion);
+            JasperViewer jv = new JasperViewer(pt, false);
+            jv.setVisible(true);
+        } catch (Exception e) {
+        }
+    }//GEN-LAST:event_iconoReporteDeEmpleadosMouseClicked
+
+    private void iconoGraficaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_iconoGraficaMouseClicked
+        // TODO add your handling code here:
+        GraficaEmpleados gf = new GraficaEmpleados(); 
+        gf.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_iconoGraficaMouseClicked
+
+    private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
+        // TODO add your handling code here:
+        triggers tg = new triggers();
+        tg.setVisible(true);
+        setVisible(false);
+    }//GEN-LAST:event_jLabel1MouseClicked
+
     public static void main(String args[]) {
-        
+
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new VentanaInicio().setVisible(true);
@@ -247,6 +331,9 @@ public class VentanaInicio extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel fondo;
     private javax.swing.JLabel iconoGestionarEmpleado;
+    private javax.swing.JLabel iconoGrafica;
+    private javax.swing.JLabel iconoReporteDeEmpleados;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel labelAgregarUsuario;

@@ -50,7 +50,7 @@ public class LogginRegistrar extends javax.swing.JFrame {
         fondoRegistrar = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("REGÍSTRESE :) ALV");
+        setTitle("REGÍSTRESE :) ");
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -154,7 +154,7 @@ public class LogginRegistrar extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(getParent(), "ELIJA OTRO NOMBRE DE USUARIO", "USUARIO EXISTENTE", JOptionPane.ERROR_MESSAGE);
                 } else {
                     Procedimientos.InsertarUsuarios(cajaUsuarioRegistrar.getText(), cajaContraseniaRegistrar.getText());
-                    JOptionPane.showMessageDialog(getParent(), "REGISTRADO PERRO!!!", "BIENVENIDO PVTO", JOptionPane.INFORMATION_MESSAGE, icono("/Imagenes/iconoCorrecto.png", 50, 50));
+                    JOptionPane.showMessageDialog(getParent(), "REGISTRADO!!!", "BIENVENIDO", JOptionPane.INFORMATION_MESSAGE, icono("/Imagenes/iconoCorrecto.png", 50, 50));
                 }
             } catch (SQLException e) {
             }

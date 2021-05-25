@@ -71,15 +71,17 @@ public class Loggin extends javax.swing.JFrame {
                 botonIniciarSesionActionPerformed(evt);
             }
         });
-        jPanel1.add(botonIniciarSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 320, 130, 30));
+        jPanel1.add(botonIniciarSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 320, 130, 30));
 
-        botonRegistrarse.setText("REGISTRARSE");
+        botonRegistrarse.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/botonRegistrarse.png"))); // NOI18N
+        botonRegistrarse.setBorder(null);
+        botonRegistrarse.setOpaque(false);
         botonRegistrarse.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 botonRegistrarseMouseClicked(evt);
             }
         });
-        jPanel1.add(botonRegistrarse, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 330, 100, 20));
+        jPanel1.add(botonRegistrarse, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 320, 130, 30));
 
         cajaUsuario.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         cajaUsuario.setHorizontalAlignment(javax.swing.JTextField.CENTER);

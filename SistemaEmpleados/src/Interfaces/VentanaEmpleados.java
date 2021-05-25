@@ -5,6 +5,7 @@
  */
 package Interfaces;
 
+import java.net.URL;
 import java.sql.ResultSet;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -39,12 +40,18 @@ public class VentanaEmpleados extends javax.swing.JFrame {
         labelIntroduzca.setVisible(false);
         cajaFechaContratacion.setEditable(false);
         cajaFechaContratacion.setText(fechaActual());
+        iconoEnBD();
+    }
+    public void iconoEnBD() {
+        URL url = getClass().getResource("/imagenes/ICONOENBD.png");
+        ImageIcon icono = new ImageIcon(url);
+        setIconImage(icono.getImage());
     }
 
     public void tablaEmpleados() {
         DefaultTableModel modelo = (DefaultTableModel) tablaEmployees.getModel();
         modelo.setRowCount(0);
-        rs = sistemaempleados.ConexionSQLServer.Consulta("SELECT * FROM datos_completos");
+        rs = sistemaempleados.ConexionSQLServer.Consulta("SELECT * FROM datos_completos where emp_no like'"+cajaBuscar.getText()+"%' OR nombre like'"+cajaBuscar.getText()+"%' OR apellido like'"+cajaBuscar.getText()+"%'");
         try {
             while (rs.next()) {
                 Vector v = new Vector();
@@ -142,16 +149,36 @@ public class VentanaEmpleados extends javax.swing.JFrame {
         dateCalendario = new com.toedter.calendar.JDateChooser();
         dateSalario = new com.toedter.calendar.JDateChooser();
         botonRegresar = new javax.swing.JButton();
+        cajaBuscar = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
         fondo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        cajaNombre.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                cajaNombreKeyTyped(evt);
+            }
+        });
         jPanel1.add(cajaNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 90, 120, 30));
+
+        cajaApellido.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                cajaApellidoKeyTyped(evt);
+            }
+        });
         jPanel1.add(cajaApellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 90, 120, 30));
         jPanel1.add(cajaFechaContratacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 170, 140, 30));
-        jPanel1.add(cajaSalario, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 320, 120, 20));
+
+        cajaSalario.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                cajaSalarioKeyTyped(evt);
+            }
+        });
+        jPanel1.add(cajaSalario, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 310, 120, 30));
 
         cajaID.setBorder(null);
         jPanel1.add(cajaID, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 260, 40, 30));
@@ -254,7 +281,7 @@ public class VentanaEmpleados extends javax.swing.JFrame {
 
         labelSalario.setFont(new java.awt.Font("Candara", 1, 16)); // NOI18N
         labelSalario.setText("Salario");
-        jPanel1.add(labelSalario, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 300, -1, -1));
+        jPanel1.add(labelSalario, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 290, -1, -1));
 
         tablaUlltimoEmp.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -290,14 +317,16 @@ public class VentanaEmpleados extends javax.swing.JFrame {
 
         jPanel1.add(ScrollPaneUltimoEmp, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 400, 620, 80));
 
-        labelIntroduzca.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        labelIntroduzca.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         labelIntroduzca.setForeground(new java.awt.Color(0, 153, 0));
         labelIntroduzca.setText("Verifique que los datos sean correctos e introduzca los campos restantes");
-        jPanel1.add(labelIntroduzca, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 390, -1, -1));
+        jPanel1.add(labelIntroduzca, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 380, -1, -1));
         jPanel1.add(dateCalendario, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 170, 150, 30));
         jPanel1.add(dateSalario, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 310, 150, 30));
 
+        botonRegresar.setBackground(new java.awt.Color(204, 204, 204));
         botonRegresar.setFont(new java.awt.Font("Microsoft YaHei UI", 2, 10)); // NOI18N
+        botonRegresar.setForeground(new java.awt.Color(51, 255, 0));
         botonRegresar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/home.png"))); // NOI18N
         botonRegresar.setText("INICIO");
         botonRegresar.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -305,7 +334,19 @@ public class VentanaEmpleados extends javax.swing.JFrame {
                 botonRegresarMouseClicked(evt);
             }
         });
-        jPanel1.add(botonRegresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 10, -1, -1));
+        jPanel1.add(botonRegresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 5, -1, -1));
+
+        cajaBuscar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                cajaBuscarKeyReleased(evt);
+            }
+        });
+        jPanel1.add(cajaBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 350, 90, -1));
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 3, 12)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(0, 0, 255));
+        jLabel1.setText("BUSCAR");
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 350, 60, 20));
 
         fondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/VentanaEmpleado.jpg"))); // NOI18N
         jPanel1.add(fondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 660, -1));
@@ -346,7 +387,7 @@ public class VentanaEmpleados extends javax.swing.JFrame {
                     if (opcionC == JOptionPane.YES_OPTION) {
                         Procedimientos.InsertarEmpleados(new java.sql.Date(dateCalendario.getDate().getTime()), cajaNombre.getText(),
                                 cajaApellido.getText(), String.valueOf(comboBoxGenero.getSelectedItem()), cajaFechaContratacion.getText());
-                        JOptionPane.showMessageDialog(getParent(), "REGISTRADO");
+                        JOptionPane.showMessageDialog(getParent(), "REGISTRADO", "ÉXITO", JOptionPane.INFORMATION_MESSAGE, icono("/Imagenes/iconoCrearUsuario.png", 50, 50));
                         tablaUltEmpleados();
                         botonSiguiente.setVisible(true);
                         ScrollPaneUltimoEmp.setVisible(true);
@@ -427,6 +468,38 @@ public class VentanaEmpleados extends javax.swing.JFrame {
         setVisible(false);
     }//GEN-LAST:event_botonRegresarMouseClicked
 
+    private void cajaBuscarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cajaBuscarKeyReleased
+        // TODO add your handling code here:
+        tablaEmpleados();
+    }//GEN-LAST:event_cajaBuscarKeyReleased
+
+    private void cajaNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cajaNombreKeyTyped
+        // TODO add your handling code here:
+        char validacion = evt.getKeyChar(); 
+        if(Character.isDigit(validacion)){
+            getToolkit(); 
+            evt.consume();
+        }
+    }//GEN-LAST:event_cajaNombreKeyTyped
+
+    private void cajaApellidoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cajaApellidoKeyTyped
+        // TODO add your handling code here:
+         char validacion = evt.getKeyChar(); 
+        if(Character.isDigit(validacion)){
+            getToolkit(); 
+            evt.consume();
+        }
+    }//GEN-LAST:event_cajaApellidoKeyTyped
+
+    private void cajaSalarioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cajaSalarioKeyTyped
+        // TODO add your handling code here:
+         char validacion = evt.getKeyChar(); 
+        if(Character.isLetter(validacion)){
+            getToolkit(); 
+            evt.consume();
+        }
+    }//GEN-LAST:event_cajaSalarioKeyTyped
+
     /**
      * @param args the command line arguments
      */
@@ -448,6 +521,7 @@ public class VentanaEmpleados extends javax.swing.JFrame {
     private javax.swing.JButton botonRegresar;
     private javax.swing.JButton botonSiguiente;
     private javax.swing.JTextField cajaApellido;
+    private javax.swing.JTextField cajaBuscar;
     private javax.swing.JTextField cajaFechaContratacion;
     private javax.swing.JTextField cajaID;
     private javax.swing.JTextField cajaNombre;
@@ -457,6 +531,7 @@ public class VentanaEmpleados extends javax.swing.JFrame {
     private com.toedter.calendar.JDateChooser dateCalendario;
     private com.toedter.calendar.JDateChooser dateSalario;
     private javax.swing.JLabel fondo;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel labelApellido;
     private javax.swing.JLabel labelContrato;
