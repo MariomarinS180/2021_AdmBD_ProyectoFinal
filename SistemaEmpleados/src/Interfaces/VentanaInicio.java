@@ -65,6 +65,7 @@ public class VentanaInicio extends javax.swing.JFrame {
         labelSet2 = new javax.swing.JLabel();
         labelSet1 = new javax.swing.JLabel();
         labelImagenDosOpc = new javax.swing.JLabel();
+        iconoGestionarEmpleado = new javax.swing.JLabel();
         fondo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -156,6 +157,9 @@ public class VentanaInicio extends javax.swing.JFrame {
         labelImagenDosOpc.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/configuracion.jpg"))); // NOI18N
         jPanel1.add(labelImagenDosOpc, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 270, -1, -1));
 
+        iconoGestionarEmpleado.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/MenuGestionarEmpleado.png"))); // NOI18N
+        jPanel1.add(iconoGestionarEmpleado, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 30, 180, 170));
+
         fondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/DiseñoMenuDesplegable.jpg"))); // NOI18N
         jPanel1.add(fondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 810, 440));
 
@@ -242,6 +246,7 @@ public class VentanaInicio extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel fondo;
+    private javax.swing.JLabel iconoGestionarEmpleado;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel labelAgregarUsuario;
